@@ -26,10 +26,21 @@ public class d1 {
 
         Puppy newPuppy = new Puppy("Brain");
         boolean a = true;
-        double b = (int)6.345254245;
+        double b = 6.745254245;
         char c = 'c';
-        int d = 0x64;
+        Integer d = 0x64;
         String e = "test for string";
-        System.out.println(b);
+        System.out.println(Math.round(b));
+
+        char[] hello = {'h', 'e', '1', '1', '0'};
+        String hello2 = new String(hello);
+        System.out.println("wdf".concat(hello2));
+
+        int[] list = new int[10];
+        list[0] = 1;
+        System.out.println(list[4]);
+        for (int i: list) {
+            System.out.println(i);
+        }
     }
 }

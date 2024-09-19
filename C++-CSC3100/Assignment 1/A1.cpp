@@ -34,26 +34,14 @@ void update(vector<int> parameter, vector<int> & array) {
 
 int check_distinct(vector<int> array) {
     unordered_set<int> distinct_set;
-    for (int i : array) {
-        distinct_set.insert(i);
+    for (int i: array) {
+        auto a = distinct_set.insert(i);
+        if (a.second == false) {
+            distinct_set.insert(-i);
+        }
     }
     return distinct_set.size();
 }
-
-//int check_distinct(vector<int> array) {
-//    int distinct = 0;
-//    vector<int> distinct_array;
-//    for (int i : array) {
-//        if (find(distinct_array.begin(), distinct_array.end(), i) == distinct_array.end()) {
-//            distinct_array.push_back(i);
-//            distinct++;
-//        } else if (find(distinct_array.begin(), distinct_array.end(), -i) == distinct_array.end()) {
-//            distinct_array.push_back(-i);
-//            distinct++;
-//        }
-//    }
-//    return distinct;
-//}
 
 void operate(string command, vector<int> &array) {
     if (command == "2") {
@@ -89,6 +77,10 @@ int main() {
     array = get_array(source_v[1]);
     for (int i = 0; i < m; i++) {
         operate(source_v[i + 2], array);
+//        for (int i : array) {
+//            cout << i << " ";
+//        }
+//        cout << endl;
     }
     system("pause");
 }

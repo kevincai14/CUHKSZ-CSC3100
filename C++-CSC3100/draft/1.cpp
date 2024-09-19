@@ -10,11 +10,30 @@ using namespace std;
 
 int check_distinct(vector<int> array) {
     unordered_set<int> distinct_set;
-    for (int i : array) {
-        distinct_set.insert(i);
+    for (int i: array) {
+        auto a = distinct_set.insert(i);
+        if (a.second == false) {
+            distinct_set.insert(-i);
+        }
     }
+
     return distinct_set.size();
 }
+
+//int check_distinct(vector<int> array) {
+//    int distinct = 0;
+//    vector<int> distinct_array;
+//    for (int i : array) {
+//        if (find(distinct_array.begin(), distinct_array.end(), i) == distinct_array.end()) {
+//            distinct_array.push_back(i);
+//            distinct++;
+//        } else if (find(distinct_array.begin(), distinct_array.end(), -i) == distinct_array.end()) {
+//            distinct_array.push_back(-i);
+//            distinct++;
+//        }
+//    }
+//    return distinct;
+//}
 vector<int> get_array(string text) {
     int number;
     vector<int> array;

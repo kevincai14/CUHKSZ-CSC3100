@@ -63,24 +63,33 @@ void operate(string command, vector<int> &array) {
 int main() {
     vector<int> array;
     vector<string> source_v;
-    int m;
+    int status = 0;
+//    int m;
     string line;
 
     while (cin) {
         getline(cin, line);
-        source_v.push_back(line);
+        if (status == 0) {
+//            m = get_array((line))[1];
+            P = get_array(line)[2];
+            status++;
+        } else if (status == 1) {
+            array = get_array(line);
+        } else {
+            operate(line, array);
+        }
     }
 
-    m = get_array((source_v[0]))[1];
-    P = get_array(source_v[0])[2];
+//    m = get_array((source_v[0]))[1];
+//    P = get_array(source_v[0])[2];
 
-    array = get_array(source_v[1]);
-    for (int i = 0; i < m; i++) {
-        operate(source_v[i + 2], array);
+//    array = get_array(source_v[1]);
+//    for (int i = 0; i < m; i++) {
+//        operate(source_v[i + 2], array);
 //        for (int i : array) {
 //            cout << i << " ";
 //        }
 //        cout << endl;
-    }
+//    }
     system("pause");
 }

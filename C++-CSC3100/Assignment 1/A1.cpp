@@ -3,33 +3,19 @@
 //
 # include <iostream>
 #include <vector>
-#include <sstream>
+#include <cstdint>
 #include <algorithm>
 #include <unordered_set>
 using namespace std;
 
 int P;
 
-vector<int> get_array(string text) {
-    int number;
-    vector<int> array;
 
-    stringstream ss(text);
-    while (ss >> number) {
-        array.push_back(number);
-    }
-
-    return array;
-}
-
-void update(vector<int> parameter, vector<int> & array) {
-    int k = parameter[1];
-    int x = parameter[2];
-    int y = parameter[3];
-    int c = parameter[4];
+void update(vector<int> & array) {
+    int k, x, y, c;
+    cin >> k >> x >> y >> c;
     int a = (((x * x) + k * y + 5 * x) % P) * c;
     array[k - 1] = a;
-
 }
 
 int check_distinct(vector<int> &array) {
@@ -58,44 +44,62 @@ int check_distinct(vector<int> &array) {
 //    return distinct;
 //}
 
-void operate(string &command, vector<int> &array) {
-    if (command == "2") {
+int operate(int &command, vector<int> &array) {
+    if (command == 2) {
         int sum = 0;
         for (int i : array) {
             sum += i;
         }
-        cout << sum << endl;
-    } else if (command == "3") {
+        return sum;
+    } else if (command == 3) {
         int result = check_distinct(array);
-        cout << result << endl;
-    } else {
-        update(get_array(command), array);
+        return result;
+    } else if (command == 1) {
+        update(array);
+        return INT32_MAX;
     }
 }
 
 
 
 int main() {
-    vector<int> array;
+//    vector<int> array;
     vector<string> source_v;
-    int m;
+    int n,m;
     string line;
 
-    while (cin) {
-        getline(cin, line);
-        source_v.push_back(line);
-    }
+//    while (cin) {
+//        getline(cin, line);
+//        source_v.push_back(line);
+//    }
 
-    m = get_array((source_v[0]))[1];
-    P = get_array(source_v[0])[2];
+//    m = get_array((source_v[0]))[1];
+//    P = get_array(source_v[0])[2];
 
-    array = get_array(source_v[1]);
-    for (int i = 0; i < m; i++) {
-        operate(source_v[i + 2], array);
+//    array = get_array(source_v[1]);
+//    for (int i = 0; i < m; i++) {
+//        operate(source_v[i + 2], array);
 //        for (int i : array) {
 //            cout << i << " ";
 //        }
 //        cout << endl;
+//    }
+    cin >> n >> m >> P;
+    vector<int> array(n);
+    vector<int> output;
+    for (int i = 0; i < n; i++) {
+        cin >> array[i];
+    }
+    for (int i = 0; i < m; i++) {
+        int command;
+        cin >> command;
+        int single_output = operate(command, array);
+        if (single_output != INT32_MAX) {
+            output.push_back(single_output);
+        }
+    }
+    for (int i : output) {
+        cout << i << endl;
     }
     system("pause");
 }

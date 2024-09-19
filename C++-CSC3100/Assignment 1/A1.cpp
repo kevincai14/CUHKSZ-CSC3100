@@ -29,6 +29,7 @@ void update(vector<int> parameter, vector<int> & array) {
     int c = parameter[4];
     int a = (((x * x) + k * y + 5 * x) % P) * c;
     array[k - 1] = a;
+
 }
 
 int check_distinct(vector<int> array) {
@@ -41,6 +42,21 @@ int check_distinct(vector<int> array) {
     }
     return distinct_set.size();
 }
+
+//int check_distinct(vector<int> array) {
+//    int distinct = 0;
+//    vector<int> distinct_array;
+//    for (int i : array) {
+//        if (find(distinct_array.begin(), distinct_array.end(), i) == distinct_array.end()) {
+//            distinct_array.push_back(i);
+//            distinct++;
+//        } else if (find(distinct_array.begin(), distinct_array.end(), -i) == distinct_array.end()) {
+//            distinct_array.push_back(-i);
+//            distinct++;
+//        }
+//    }
+//    return distinct;
+//}
 
 void operate(string command, vector<int> &array) {
     if (command == "2") {
@@ -62,24 +78,24 @@ void operate(string command, vector<int> &array) {
 int main() {
     vector<int> array;
     vector<string> source_v;
-    int status = 0;
-//    int m;
+    int m;
     string line;
 
     while (cin) {
         getline(cin, line);
-        if (status == 0) {
-//            m = get_array((line))[1];
-            P = get_array(line)[2];
-            status++;
-        } else if (status == 1) {
-            array = get_array(line);
-            status++;
-        } else {
-            operate(line, array);
-        }
+        source_v.push_back(line);
     }
 
+    m = get_array((source_v[0]))[1];
+    P = get_array(source_v[0])[2];
 
+    array = get_array(source_v[1]);
+    for (int i = 0; i < m; i++) {
+        operate(source_v[i + 2], array);
+//        for (int i : array) {
+//            cout << i << " ";
+//        }
+//        cout << endl;
+    }
     system("pause");
 }

@@ -119,7 +119,7 @@ CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/C___CSC3100
 CMAKE_LINKER:FILEPATH=C:/SOFTWARE/MinGW-w64/mingw64/bin/ld.exe
 
 //make program
-CMAKE_MAKE_PROGRAM:FILEPATH=C:/SOFTWARE/CLION2~1.2/bin/ninja/win/x64/ninja.exe
+CMAKE_MAKE_PROGRAM:FILEPATH=C:/SOFTWARE/CLion 2023.3.2/bin/ninja/win/x64/ninja.exe
 
 //Flags used by the linker during the creation of modules during
 // all build types.

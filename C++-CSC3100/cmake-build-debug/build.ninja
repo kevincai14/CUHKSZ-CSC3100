@@ -40,45 +40,6 @@ include CMakeFiles/rules.ninja
 # Logical path to working directory; prefix for absolute paths.
 
 cmake_ninja_workdir = C$:/Users/Quan/GitHub/CUHKSZ-CSC3100/C++-CSC3100/cmake-build-debug/
-# =============================================================================
-# Object build statements for EXECUTABLE target C___CSC3100
-
-
-#############################################
-# Order-only phony target for C___CSC3100
-
-build cmake_object_order_depends_target_C___CSC3100: phony || CMakeFiles/C___CSC3100.dir
-
-build CMakeFiles/C___CSC3100.dir/main.cpp.obj: CXX_COMPILER__C___CSC3100_unscanned_Debug C$:/Users/Quan/GitHub/CUHKSZ-CSC3100/C++-CSC3100/main.cpp || cmake_object_order_depends_target_C___CSC3100
-  DEP_FILE = CMakeFiles\C___CSC3100.dir\main.cpp.obj.d
-  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\C___CSC3100.dir
-  OBJECT_FILE_DIR = CMakeFiles\C___CSC3100.dir
-
-build CMakeFiles/C___CSC3100.dir/Assignment_1/A1.cpp.obj: CXX_COMPILER__C___CSC3100_unscanned_Debug C$:/Users/Quan/GitHub/CUHKSZ-CSC3100/C++-CSC3100/Assignment$ 1/A1.cpp || cmake_object_order_depends_target_C___CSC3100
-  DEP_FILE = CMakeFiles\C___CSC3100.dir\Assignment_1\A1.cpp.obj.d
-  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\C___CSC3100.dir
-  OBJECT_FILE_DIR = CMakeFiles\C___CSC3100.dir\Assignment_1
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target C___CSC3100
-
-
-#############################################
-# Link the executable C___CSC3100.exe
-
-build C___CSC3100.exe: CXX_EXECUTABLE_LINKER__C___CSC3100_Debug CMakeFiles/C___CSC3100.dir/main.cpp.obj CMakeFiles/C___CSC3100.dir/Assignment_1/A1.cpp.obj
-  FLAGS = -g
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\C___CSC3100.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_FILE = C___CSC3100.exe
-  TARGET_IMPLIB = libC___CSC3100.dll.a
-  TARGET_PDB = C___CSC3100.exe.dbg
-
 
 #############################################
 # Utility command for edit_cache
@@ -105,8 +66,6 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build C___CSC3100: phony C___CSC3100.exe
-
 # =============================================================================
 # Folder targets.
 
@@ -115,7 +74,7 @@ build C___CSC3100: phony C___CSC3100.exe
 #############################################
 # Folder: C:/Users/Quan/GitHub/CUHKSZ-CSC3100/C++-CSC3100/cmake-build-debug
 
-build all: phony C___CSC3100.exe
+build all: phony
 
 # =============================================================================
 # Built-in targets

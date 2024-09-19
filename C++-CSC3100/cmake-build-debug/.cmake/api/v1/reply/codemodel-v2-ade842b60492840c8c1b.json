@@ -12,11 +12,7 @@
 						"string" : "3.27"
 					},
 					"projectIndex" : 0,
-					"source" : ".",
-					"targetIndexes" : 
-					[
-						0
-					]
+					"source" : "."
 				}
 			],
 			"name" : "Debug",
@@ -27,23 +23,10 @@
 					[
 						0
 					],
-					"name" : "C___CSC3100",
-					"targetIndexes" : 
-					[
-						0
-					]
+					"name" : "C___CSC3100"
 				}
 			],
-			"targets" : 
-			[
-				{
-					"directoryIndex" : 0,
-					"id" : "C___CSC3100::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-C___CSC3100-Debug-950fc85567f2604060a1.json",
-					"name" : "C___CSC3100",
-					"projectIndex" : 0
-				}
-			]
+			"targets" : []
 		}
 	],
 	"kind" : "codemodel",

@@ -12,25 +12,6 @@
 # =============================================================================
 
 #############################################
-# Rule for compiling CXX files.
-
-rule CXX_COMPILER__C___CSC3100_unscanned_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = ${LAUNCHER}${CODE_CHECK}C:\SOFTWARE\MinGW-w64\mingw64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
-  description = Building CXX object $out
-
-
-#############################################
-# Rule for linking CXX executable.
-
-rule CXX_EXECUTABLE_LINKER__C___CSC3100_Debug
-  command = cmd.exe /C "$PRE_LINK && C:\SOFTWARE\MinGW-w64\mingw64\bin\c++.exe $FLAGS $LINK_FLAGS $in -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
-  description = Linking CXX executable $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
 # Rule for running custom commands.
 
 rule CUSTOM_COMMAND
@@ -51,7 +32,7 @@ rule RERUN_CMAKE
 # Rule for cleaning all built files.
 
 rule CLEAN
-  command = "C:\SOFTWARE\CLion 2023.3.2\bin\ninja\win\x64\ninja.exe" $FILE_ARG -t clean $TARGETS
+  command = C:\SOFTWARE\CLION2~1.2\bin\ninja\win\x64\ninja.exe $FILE_ARG -t clean $TARGETS
   description = Cleaning all built files...
 
 
@@ -59,6 +40,6 @@ rule CLEAN
 # Rule for printing all primary targets available.
 
 rule HELP
-  command = "C:\SOFTWARE\CLion 2023.3.2\bin\ninja\win\x64\ninja.exe" -t targets
+  command = C:\SOFTWARE\CLION2~1.2\bin\ninja\win\x64\ninja.exe -t targets
   description = All primary targets available:
 

@@ -4,7 +4,11 @@
 # include <iostream>
 #include <vector>
 #include <sstream>
+#include <algorithm>
+#include <unordered_set>
 using namespace std;
+
+int P;
 
 vector<int> get_array(string text) {
     int number;
@@ -18,12 +22,38 @@ vector<int> get_array(string text) {
     return array;
 }
 
-int check_distinct(vector<int> array) {
-    int distinct = 0;
-    for (int i : array) {
+void update(vector<int> parameter, vector<int> & array) {
+    int k = parameter[1];
+    int x = parameter[2];
+    int y = parameter[3];
+    int c = parameter[4];
+    int a = (((x * x) + k * y + 5 * x) % P) * c;
+    array[k - 1] = a;
 
-    }
 }
+
+int check_distinct(vector<int> array) {
+    unordered_set<int> distinct_set;
+    for (int i : array) {
+        distinct_set.insert(i);
+    }
+    return distinct_set.size();
+}
+
+//int check_distinct(vector<int> array) {
+//    int distinct = 0;
+//    vector<int> distinct_array;
+//    for (int i : array) {
+//        if (find(distinct_array.begin(), distinct_array.end(), i) == distinct_array.end()) {
+//            distinct_array.push_back(i);
+//            distinct++;
+//        } else if (find(distinct_array.begin(), distinct_array.end(), -i) == distinct_array.end()) {
+//            distinct_array.push_back(-i);
+//            distinct++;
+//        }
+//    }
+//    return distinct;
+//}
 
 void operate(string command, vector<int> &array) {
     if (command == "2") {
@@ -32,36 +62,33 @@ void operate(string command, vector<int> &array) {
             sum += i;
         }
         cout << sum << endl;
-    }
-
-    if (command == "3") {
-        cout << check_distinct(array) << endl;
+    } else if (command == "3") {
+        int result = check_distinct(array);
+        cout << result << endl;
+    } else {
+        update(get_array(command), array);
     }
 }
 
 
 
 int main() {
-    int status = 0;
-    int n, m, p;
     vector<int> array;
-
+    vector<string> source_v;
+    int m;
     string line;
 
     while (cin) {
-        if (status == 0) {
-            getline(cin, line);
-            n = line[0];
-            m = line[2];
-            p = line[4];
-            status++;
-        } else if (status == 1) {
-            array = get_array(line);
-        } else{
-            getline(cin, line);
-            operate(line, array);
-        }
-
+        getline(cin, line);
+        source_v.push_back(line);
     }
 
+    m = get_array((source_v[0]))[1];
+    P = get_array(source_v[0])[2];
+
+    array = get_array(source_v[1]);
+    for (int i = 0; i < m; i++) {
+        operate(source_v[i + 2], array);
+    }
+    system("pause");
 }

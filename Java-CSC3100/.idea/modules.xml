@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Assignment 1/Assignment 1.iml" filepath="$PROJECT_DIR$/Assignment 1/Assignment 1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Draft/Draft.iml" filepath="$PROJECT_DIR$/Draft/Draft.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java-CSC3100.iml" filepath="$PROJECT_DIR$/Java-CSC3100.iml" />
       <module fileurl="file://$PROJECT_DIR$/tut/tut.iml" filepath="$PROJECT_DIR$/tut/tut.iml" />

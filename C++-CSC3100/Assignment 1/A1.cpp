@@ -32,7 +32,7 @@ void update(vector<int> parameter, vector<int> & array) {
 
 }
 
-int check_distinct(vector<int> array) {
+int check_distinct(vector<int> &array) {
     unordered_set<int> distinct_set;
     for (int i: array) {
         auto a = distinct_set.insert(i);
@@ -58,7 +58,7 @@ int check_distinct(vector<int> array) {
 //    return distinct;
 //}
 
-void operate(string command, vector<int> &array) {
+void operate(string &command, vector<int> &array) {
     if (command == "2") {
         int sum = 0;
         for (int i : array) {

@@ -34,8 +34,11 @@ void update(vector<int> parameter, vector<int> & array) {
 
 int check_distinct(vector<int> array) {
     unordered_set<int> distinct_set;
-    for (int i : array) {
-        distinct_set.insert(i);
+    for (int i: array) {
+        auto a = distinct_set.insert(i);
+        if (a.second == false) {
+            distinct_set.insert(-i);
+        }
     }
     return distinct_set.size();
 }
@@ -89,6 +92,10 @@ int main() {
     array = get_array(source_v[1]);
     for (int i = 0; i < m; i++) {
         operate(source_v[i + 2], array);
+//        for (int i : array) {
+//            cout << i << " ";
+//        }
+//        cout << endl;
     }
     system("pause");
 }

@@ -10,5 +10,9 @@ int main() {
     cout << n + m;
     cin >> l;
     cout << l;
+    int* distinct_count = new int[n]();
+    for (int i = 0; i < n; i++) {
+        cout << distinct_count[i] << endl;
+    }
     system("pause");
 }

@@ -9,40 +9,37 @@
 using namespace std;
 
 int n,m,P;
-
+int* distinct_count = new int[10000000]();
+//int distinct_value = 0;
 
 void update(int* array) {
     int k, x, y, c;
     cin >> k >> x >> y >> c;
     int a = (((x * x) + k * y + 5 * x) % P) * c;
+    int old_value = array[k - 1];
+    distinct_count[abs(old_value)]--;
     array[k - 1] = a;
+    distinct_count[abs(a)]++;
+
 }
 
 int check_distinct(int* array) {
-    unordered_set<int> distinct_set;
-    for (int i = 0; i < n; i++) {
-        auto a = distinct_set.insert(array[i]);
-        if (a.second == false) {
-            distinct_set.insert(-array[i]);
+//    for (int i = 0; i < n; i++) {
+//        distinct_count[abs(array[i])]++;
+//    }
+    int distinct_value = 0;
+    for (int i = 0; i < P; i++) {
+        if (distinct_count[i] == 1 and i != 0) {
+            distinct_value += 1;
+        } else if (distinct_count[i] >= 2 and i != 0) {
+            distinct_value += 2;
+        } else if (i == 0 and distinct_count[i] != 0) {
+            distinct_value += 1;
         }
     }
-    return distinct_set.size();
+    return distinct_value;
 }
 
-//int check_distinct(vector<int> array) {
-//    int distinct = 0;
-//    vector<int> distinct_array;
-//    for (int i : array) {
-//        if (find(distinct_array.begin(), distinct_array.end(), i) == distinct_array.end()) {
-//            distinct_array.push_back(i);
-//            distinct++;
-//        } else if (find(distinct_array.begin(), distinct_array.end(), -i) == distinct_array.end()) {
-//            distinct_array.push_back(-i);
-//            distinct++;
-//        }
-//    }
-//    return distinct;
-//}
 
 int operate(int &command, int* array) {
     if (command == 2) {
@@ -60,47 +57,40 @@ int operate(int &command, int* array) {
     }
 }
 
-
-
 int main() {
-//    vector<int> array;
-    vector<string> source_v;
-
-    string line;
-
-//    while (cin) {
-//        getline(cin, line);
-//        source_v.push_back(line);
-//    }
-
-//    m = get_array((source_v[0]))[1];
-//    P = get_array(source_v[0])[2];
-
-//    array = get_array(source_v[1]);
-//    for (int i = 0; i < m; i++) {
-//        operate(source_v[i + 2], array);
-//        for (int i : array) {
-//            cout << i << " ";
-//        }
-//        cout << endl;
-//    }
     cin >> n >> m >> P;
+    int output_count = 0;
     int* array = new int[n];
-    vector<int> output;
+    int* output = new int[m];
     for (int i = 0; i < n; i++) {
         cin >> array[i];
+        distinct_count[abs(array[i])]++;
     }
+
+//    for (int i = 0; i < P; i++) {
+//        if (distinct_count[i] == 1 and i != 0) {
+//            distinct_value += 1;
+//        } else if (distinct_count[i] >= 2 and i != 0) {
+//            distinct_value += 2;
+//        }
+//    }
+
+
     for (int i = 0; i < m; i++) {
         int command;
         cin >> command;
         int single_output = operate(command, array);
         if (single_output != INT32_MAX) {
-            output.push_back(single_output);
+            output[output_count++] = single_output;
         }
     }
-    for (int i : output) {
-        cout << i << endl;
+    for (int i = 0; i < output_count; i++) {
+        cout << output[i] << endl;
     }
+
+
     delete[] array;
+    delete[] output;
+    delete[] distinct_count;
     system("pause");
 }

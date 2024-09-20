@@ -1,33 +1,62 @@
 //
 // Created by Quan on 2024/9/19.
 //
-# include <iostream>
+#include <iostream>
 #include <vector>
 #include <cstdint>
 #include <algorithm>
 #include <unordered_set>
+#include <unordered_map>
 using namespace std;
 
 int n,m,P;
-
+int distinct_value = 0;
+unordered_map<int, int> value_counter;
+int zero_count = 0;
 
 void update(int* array) {
     int k, x, y, c;
     cin >> k >> x >> y >> c;
+
+    int old_value = array[k - 1];
+
+    if (old_value == 0) {
+        zero_count--;
+    } else {
+        value_counter[abs(old_value)]--;
+        if (value_counter[abs(old_value)] == 0) {
+            value_counter.erase(abs(old_value));
+        }
+    }
+
     int a = (((x * x) + k * y + 5 * x) % P) * c;
     array[k - 1] = a;
+
+    if (a == 0) {
+        zero_count++;
+    } else {
+        value_counter[abs(a)]++;
+    }
 }
 
 int check_distinct(int* array) {
-    unordered_set<int> distinct_set;
-    for (int i = 0; i < n; i++) {
-        auto a = distinct_set.insert(array[i]);
-        if (a.second == false) {
-            distinct_set.insert(-array[i]);
+    for (const auto &entry : value_counter) {
+        if (entry.second >= 2) {
+            distinct_value += 2;
+        } else {
+            distinct_value += 1;
         }
     }
-    return distinct_set.size();
+
+
+    if (zero_count > 0) {
+        distinct_value++;
+    }
+
+    return distinct_value;
 }
+
+
 
 //int check_distinct(vector<int> array) {
 //    int distinct = 0;

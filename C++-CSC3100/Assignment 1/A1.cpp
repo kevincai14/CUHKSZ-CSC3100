@@ -1,62 +1,33 @@
 //
 // Created by Quan on 2024/9/19.
 //
-#include <iostream>
+# include <iostream>
 #include <vector>
 #include <cstdint>
 #include <algorithm>
 #include <unordered_set>
-#include <unordered_map>
 using namespace std;
 
-int n,m,P;
-int distinct_value = 0;
-unordered_map<int, int> value_counter;
-int zero_count = 0;
+int P;
 
-void update(int* array) {
+
+void update(vector<int> & array) {
     int k, x, y, c;
     cin >> k >> x >> y >> c;
-
-    int old_value = array[k - 1];
-
-    if (old_value == 0) {
-        zero_count--;
-    } else {
-        value_counter[abs(old_value)]--;
-        if (value_counter[abs(old_value)] == 0) {
-            value_counter.erase(abs(old_value));
-        }
-    }
-
     int a = (((x * x) + k * y + 5 * x) % P) * c;
     array[k - 1] = a;
-
-    if (a == 0) {
-        zero_count++;
-    } else {
-        value_counter[abs(a)]++;
-    }
 }
 
-int check_distinct(int* array) {
-    for (const auto &entry : value_counter) {
-        if (entry.second >= 2) {
-            distinct_value += 2;
-        } else {
-            distinct_value += 1;
+int check_distinct(vector<int> &array) {
+    unordered_set<int> distinct_set;
+    for (int i: array) {
+        auto a = distinct_set.insert(i);
+        if (a.second == false) {
+            distinct_set.insert(-i);
         }
     }
-
-
-    if (zero_count > 0) {
-        distinct_value++;
-    }
-
-    return distinct_value;
+    return distinct_set.size();
 }
-
-
 
 //int check_distinct(vector<int> array) {
 //    int distinct = 0;
@@ -73,11 +44,11 @@ int check_distinct(int* array) {
 //    return distinct;
 //}
 
-int operate(int &command, int* array) {
+int operate(int &command, vector<int> &array) {
     if (command == 2) {
         int sum = 0;
-        for (int i = 0; i < n; i++) {
-            sum += array[i];
+        for (int i : array) {
+            sum += i;
         }
         return sum;
     } else if (command == 3) {
@@ -94,7 +65,7 @@ int operate(int &command, int* array) {
 int main() {
 //    vector<int> array;
     vector<string> source_v;
-
+    int n,m;
     string line;
 
 //    while (cin) {
@@ -114,7 +85,7 @@ int main() {
 //        cout << endl;
 //    }
     cin >> n >> m >> P;
-    int* array = new int[n];
+    vector<int> array(n);
     vector<int> output;
     for (int i = 0; i < n; i++) {
         cin >> array[i];
@@ -130,6 +101,5 @@ int main() {
     for (int i : output) {
         cout << i << endl;
     }
-    delete[] array;
     system("pause");
 }

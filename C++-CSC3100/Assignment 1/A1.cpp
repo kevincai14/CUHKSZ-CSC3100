@@ -8,22 +8,22 @@
 #include <unordered_set>
 using namespace std;
 
-int P;
+int n,m,P;
 
 
-void update(vector<int> & array) {
+void update(int* array) {
     int k, x, y, c;
     cin >> k >> x >> y >> c;
     int a = (((x * x) + k * y + 5 * x) % P) * c;
     array[k - 1] = a;
 }
 
-int check_distinct(vector<int> &array) {
+int check_distinct(int* array) {
     unordered_set<int> distinct_set;
-    for (int i: array) {
-        auto a = distinct_set.insert(i);
+    for (int i = 0; i < n; i++) {
+        auto a = distinct_set.insert(array[i]);
         if (a.second == false) {
-            distinct_set.insert(-i);
+            distinct_set.insert(-array[i]);
         }
     }
     return distinct_set.size();
@@ -44,11 +44,11 @@ int check_distinct(vector<int> &array) {
 //    return distinct;
 //}
 
-int operate(int &command, vector<int> &array) {
+int operate(int &command, int* array) {
     if (command == 2) {
         int sum = 0;
-        for (int i : array) {
-            sum += i;
+        for (int i = 0; i < n; i++) {
+            sum += array[i];
         }
         return sum;
     } else if (command == 3) {
@@ -65,7 +65,7 @@ int operate(int &command, vector<int> &array) {
 int main() {
 //    vector<int> array;
     vector<string> source_v;
-    int n,m;
+
     string line;
 
 //    while (cin) {
@@ -85,7 +85,7 @@ int main() {
 //        cout << endl;
 //    }
     cin >> n >> m >> P;
-    vector<int> array(n);
+    int* array = new int[n];
     vector<int> output;
     for (int i = 0; i < n; i++) {
         cin >> array[i];
@@ -101,5 +101,6 @@ int main() {
     for (int i : output) {
         cout << i << endl;
     }
+    delete[] array;
     system("pause");
 }

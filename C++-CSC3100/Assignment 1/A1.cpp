@@ -5,29 +5,37 @@
 #include <vector>
 #include <cstdint>
 #include <algorithm>
-#include <unordered_set>
 using namespace std;
 
 int n,m,P;
-int* distinct_count = new int[10000000]();
+int* distinct_count = new int[1000000]();
 int distinct_value = 0;
+int sum = 0;
 
 void update(int* array) {
     int k, x, y, c;
     cin >> k >> x >> y >> c;
     int a = (((x * x) + k * y + 5 * x) % P) * c;
+
     int old_value = array[k - 1];
-    distinct_count[abs(old_value)]--;
-    if (distinct_count[abs(old_value)] <= 1 and old_value != 0) {
+
+    int abs_value_old = abs(old_value);
+    distinct_count[abs_value_old]--;
+
+    if (distinct_count[abs_value_old] <= 1 and old_value != 0) {
         distinct_value--;
-    } else if (old_value == 0 and distinct_count[abs(old_value)] == 0) {
+    } else if (old_value == 0 and distinct_count[abs_value_old] == 0) {
         distinct_value--;
     }
+
     array[k - 1] = a;
-    distinct_count[abs(a)]++;
-    if (distinct_count[abs(a)] <= 2 and a != 0) {
+    sum += (a - old_value);
+    int abs_new = abs(a);
+    distinct_count[abs_new]++;
+
+    if (distinct_count[abs_new] <= 2 and a != 0) {
         distinct_value++;
-    } else if (a == 0 and distinct_count[abs(a)] == 1) {
+    } else if (a == 0 and distinct_count[abs_new] == 1) {
         distinct_value++;
     }
 
@@ -35,9 +43,6 @@ void update(int* array) {
 }
 
 int check_distinct(int* array) {
-//    for (int i = 0; i < n; i++) {
-//        distinct_count[abs(array[i])]++;
-//    }
     for (int i = 0; i < P; i++) {
         if (distinct_count[i] == 1 and i != 0) {
             distinct_value += 1;
@@ -52,20 +57,37 @@ int check_distinct(int* array) {
 
 
 int operate(int &command, int* array) {
-    if (command == 2) {
-        int sum = 0;
-        for (int i = 0; i < n; i++) {
-            sum += array[i];
+//    if (command == 2) {
+//        int sum = 0;
+//        for (int i = 0; i < n; i++) {
+//            sum += array[i];
+//        }
+//        return sum;
+//    } else if (command == 3) {
+//        int result = distinct_value;
+//        return result;
+//    } else if (command == 1) {
+//        update(array);
+//        return INT32_MAX;
+//    }
+    switch (command) {
+        case 1:
+            update(array);
+            return INT32_MAX;
+        case 2: {
+//            int sum = 0;
+//            for (int i = 0; i < n; i++) {
+//                sum += array[i];
+//            }
+            return sum;
         }
-        return sum;
-    } else if (command == 3) {
-        int result = distinct_value;
-        return result;
-    } else if (command == 1) {
-        update(array);
-        return INT32_MAX;
+        case 3:
+            return distinct_value;
+        default:
+            return INT32_MAX;
     }
 }
+
 
 int main() {
     cin >> n >> m >> P;
@@ -73,12 +95,14 @@ int main() {
     int* array = new int[n];
     int* output = new int[m];
     for (int i = 0; i < n; i++) {
-        cin >> array[i];
+        int temp;
+        cin >> temp;
+        sum += temp;
+        array[i] = temp;
         distinct_count[abs(array[i])]++;
     }
 
     check_distinct(array);
-
 
     for (int i = 0; i < m; i++) {
         int command;
@@ -88,6 +112,7 @@ int main() {
             output[output_count++] = single_output;
         }
     }
+
     for (int i = 0; i < output_count; i++) {
         cout << output[i] << endl;
     }

@@ -10,7 +10,7 @@ using namespace std;
 
 int n,m,P;
 int* distinct_count = new int[10000000]();
-//int distinct_value = 0;
+int distinct_value = 0;
 
 void update(int* array) {
     int k, x, y, c;
@@ -18,8 +18,19 @@ void update(int* array) {
     int a = (((x * x) + k * y + 5 * x) % P) * c;
     int old_value = array[k - 1];
     distinct_count[abs(old_value)]--;
+    if (distinct_count[abs(old_value)] <= 1 and old_value != 0) {
+        distinct_value--;
+    } else if (old_value == 0 and distinct_count[abs(old_value)] == 0) {
+        distinct_value--;
+    }
     array[k - 1] = a;
     distinct_count[abs(a)]++;
+    if (distinct_count[abs(a)] <= 2 and a != 0) {
+        distinct_value++;
+    } else if (a == 0 and distinct_count[abs(a)] == 1) {
+        distinct_value++;
+    }
+
 
 }
 
@@ -27,7 +38,6 @@ int check_distinct(int* array) {
 //    for (int i = 0; i < n; i++) {
 //        distinct_count[abs(array[i])]++;
 //    }
-    int distinct_value = 0;
     for (int i = 0; i < P; i++) {
         if (distinct_count[i] == 1 and i != 0) {
             distinct_value += 1;
@@ -49,7 +59,7 @@ int operate(int &command, int* array) {
         }
         return sum;
     } else if (command == 3) {
-        int result = check_distinct(array);
+        int result = distinct_value;
         return result;
     } else if (command == 1) {
         update(array);
@@ -67,13 +77,7 @@ int main() {
         distinct_count[abs(array[i])]++;
     }
 
-//    for (int i = 0; i < P; i++) {
-//        if (distinct_count[i] == 1 and i != 0) {
-//            distinct_value += 1;
-//        } else if (distinct_count[i] >= 2 and i != 0) {
-//            distinct_value += 2;
-//        }
-//    }
+    check_distinct(array);
 
 
     for (int i = 0; i < m; i++) {

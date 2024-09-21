@@ -1,4 +1,16 @@
 "C:\SOFTWARE\CLion 2023.3.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/SOFTWARE/CLion 2023.3.2/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\Quan\GitHub\CUHKSZ-CSC3100\C++-CSC3100 -B C:\Users\Quan\GitHub\CUHKSZ-CSC3100\C++-CSC3100\cmake-build-debug
--- Configuring done (0.3s)
+-- The C compiler identification is GNU 8.1.0
+-- The CXX compiler identification is GNU 8.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/SOFTWARE/MinGW-w64/mingw64/bin/gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/SOFTWARE/MinGW-w64/mingw64/bin/c++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (1.4s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/Quan/GitHub/CUHKSZ-CSC3100/C++-CSC3100/cmake-build-debug

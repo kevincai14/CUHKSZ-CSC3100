@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d1563787-19cd-43ed-a75f-ab6c525cdabd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/.cmake/api/v1/reply/cache-v2-0b107737de68abdaa45e.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-a4fcc95f3606f5345037.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-ade842b60492840c8c1b.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/.cmake/api/v1/reply/index-2024-09-19T15-42-50-0336.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/3.27.8/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/3.27.8/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/3.27.8/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/3.27.8/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdC/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdC/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdCXX/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdCXX/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../C++-CSC3100/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2023" />
+    <option name="minorVersion" value="3.2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2mHgUdIEaAJR4hqoN5bI4YqQqPH" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;C/C++ File.1.cpp.executor&quot;: &quot;Run&quot;,
+    &quot;C/C++ File.2.cpp.executor&quot;: &quot;Run&quot;,
+    &quot;C/C++ File.A1.cpp (1).executor&quot;: &quot;Run&quot;,
+    &quot;C/C++ File.A1.cpp.executor&quot;: &quot;Run&quot;,
+    &quot;C/C++ File.A2.cpp.executor&quot;: &quot;Run&quot;,
+    &quot;C/C++ File.run while reading.cpp.executor&quot;: &quot;Run&quot;,
+    &quot;CMake Application.C___CSC3100.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Quan/GitHub/CUHKSZ-CSC3100/Cpp-CSC3100&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="C/C++ File.A2.cpp">
+    <configuration name="1.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="C___CSC3100" TARGET_NAME="1.cpp" CONFIG_NAME="1.cpp">
+      <option name="sourceFile" value="draft\1.cpp" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="2.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="C___CSC3100" TARGET_NAME="2.cpp" CONFIG_NAME="2.cpp">
+      <option name="sourceFile" value="draft\2.cpp" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="A1.cpp (1)" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="C___CSC3100" TARGET_NAME="A1.cpp">
+      <option name="sourceFile" value="Assignment 1\A1.cpp" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="A1.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="C___CSC3100" TARGET_NAME="A1.cpp" CONFIG_NAME="A1.cpp">
+      <option name="sourceFile" value="C:\Users\Quan\GitHub\CUHKSZ-CSC3100\C++-CSC3100\Assignment 1\A1.cpp" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="A2.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="C___CSC3100" TARGET_NAME="A2.cpp" CONFIG_NAME="A2.cpp">
+      <option name="sourceFile" value="Assignment 1\A2.cpp" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="run while reading.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="C___CSC3100" TARGET_NAME="run while reading.cpp" CONFIG_NAME="run while reading.cpp">
+      <option name="sourceFile" value="C:\Users\Quan\GitHub\CUHKSZ-CSC3100\C++-CSC3100\draft\run while reading.cpp" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="C/C++ File.1.cpp" />
+      <item itemvalue="C/C++ File.2.cpp" />
+      <item itemvalue="C/C++ File.A1.cpp (1)" />
+      <item itemvalue="C/C++ File.A1.cpp" />
+      <item itemvalue="C/C++ File.A2.cpp" />
+      <item itemvalue="C/C++ File.run while reading.cpp" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="C/C++ File.A2.cpp" />
+        <item itemvalue="C/C++ File.2.cpp" />
+        <item itemvalue="C/C++ File.A1.cpp (1)" />
+        <item itemvalue="C/C++ File.1.cpp" />
+        <item itemvalue="C/C++ File.1.cpp" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d1563787-19cd-43ed-a75f-ab6c525cdabd" name="Changes" comment="" />
+      <created>1726738932847</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1726738932847</updated>
+      <workItem from="1726738935483" duration="16467000" />
+      <workItem from="1726760569023" duration="11485000" />
+      <workItem from="1726799392293" duration="13668000" />
+      <workItem from="1726828647798" duration="752000" />
+      <workItem from="1726887034826" duration="8700000" />
+      <workItem from="1726897938289" duration="135000" />
+      <workItem from="1726898095349" duration="13000" />
+    </task>
+    <task id="LOCAL-00001" summary="Revert &quot;version3&quot;&#10;&#10;This reverts commit 62fa4308">
+      <option name="closed" value="true" />
+      <created>1726761165623</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1726761165623</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Revert &quot;Update A1.cpp&quot;&#10;&#10;This reverts commit 50f71eac">
+      <option name="closed" value="true" />
+      <created>1726765823180</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1726765823180</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Revert &quot;using array instead of vector&quot;&#10;&#10;This reverts commit c1ed2f32">
+      <option name="closed" value="true" />
+      <created>1726801999142</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1726801999142</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Revert &quot;version3&quot;&#10;&#10;This reverts commit 62fa4308" />
+    <MESSAGE value="Revert &quot;Update A1.cpp&quot;&#10;&#10;This reverts commit 50f71eac" />
+    <MESSAGE value="Revert &quot;using array instead of vector&quot;&#10;&#10;This reverts commit c1ed2f32" />
+    <option name="LAST_COMMIT_MESSAGE" value="Revert &quot;using array instead of vector&quot;&#10;&#10;This reverts commit c1ed2f32" />
+  </component>
+</project>

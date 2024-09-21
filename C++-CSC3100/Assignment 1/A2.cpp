@@ -43,7 +43,7 @@ int isValidPermutation(int* array, int* left, int* right) {
         }
         count++;
     }
-    if (count == merge.size()) {
+    if (count != merge.size()) {
         return 0;
     }
 

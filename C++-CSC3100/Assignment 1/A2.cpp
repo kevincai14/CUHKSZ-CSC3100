@@ -30,9 +30,17 @@ int isValidPermutation(int* array, int* left, int* right) {
 
     auto merge_array = merge(left, right);
     for (int i = 0; i < 2 * q; i++) {
+
+
         while (array_index < n and merge_array[i] != array[array_index]) {
             array_index++;
         }
+
+        if (i == q - 1 and merge_array[i + 1] == array[array_index + 1]) {
+            break;
+        }
+
+
         if (merge_array[i] == array[array_index]) {
             count++;
         }

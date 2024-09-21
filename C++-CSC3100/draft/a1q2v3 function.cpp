@@ -65,4 +65,3 @@ int isValidPermutation(int* array, int* left, int* right) {
     }
 
 }
-

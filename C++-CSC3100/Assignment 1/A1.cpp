@@ -15,6 +15,7 @@ int sum = 0;
 void update(int* array) {
     int k, x, y, c;
     cin >> k >> x >> y >> c;
+
     int a = (((x * x) + k * y + 5 * x) % P) * c;
 
     int old_value = array[k - 1];
@@ -30,6 +31,7 @@ void update(int* array) {
 
     array[k - 1] = a;
     sum += (a - old_value);
+
     int abs_new = abs(a);
     distinct_count[abs_new]++;
 
@@ -38,8 +40,6 @@ void update(int* array) {
     } else if (a == 0 and distinct_count[abs_new] == 1) {
         distinct_value++;
     }
-
-
 }
 
 int check_distinct(int* array) {
@@ -57,28 +57,11 @@ int check_distinct(int* array) {
 
 
 int operate(int &command, int* array) {
-//    if (command == 2) {
-//        int sum = 0;
-//        for (int i = 0; i < n; i++) {
-//            sum += array[i];
-//        }
-//        return sum;
-//    } else if (command == 3) {
-//        int result = distinct_value;
-//        return result;
-//    } else if (command == 1) {
-//        update(array);
-//        return INT32_MAX;
-//    }
     switch (command) {
         case 1:
             update(array);
             return INT32_MAX;
         case 2: {
-//            int sum = 0;
-//            for (int i = 0; i < n; i++) {
-//                sum += array[i];
-//            }
             return sum;
         }
         case 3:
@@ -94,6 +77,7 @@ int main() {
     int output_count = 0;
     int* array = new int[n];
     int* output = new int[m];
+
     for (int i = 0; i < n; i++) {
         int temp;
         cin >> temp;
@@ -107,7 +91,9 @@ int main() {
     for (int i = 0; i < m; i++) {
         int command;
         cin >> command;
+
         int single_output = operate(command, array);
+
         if (single_output != INT32_MAX) {
             output[output_count++] = single_output;
         }
@@ -116,7 +102,6 @@ int main() {
     for (int i = 0; i < output_count; i++) {
         cout << output[i] << endl;
     }
-
 
     delete[] array;
     delete[] output;

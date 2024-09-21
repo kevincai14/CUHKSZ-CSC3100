@@ -3,53 +3,41 @@
 //
 #include <iostream>
 #include <vector>
+#include <map>
 using namespace std;
 
 int n, q;
 
 
 int isValidPermutation(int* array, int* left, int* right) {
-    if (array[0] != left[0] or array[n - 1] != right[0]) {
-        return 0;
+
+    map<int, int> index;
+    for (int i = 0; i < n; i++) {
+        index[array[i]] = i;
     }
 
-    for (int i = 0; i < q - 1; i++) {
-        if (left[q - 1 - i] != left[q - 1 - i - 1] and right[q - 1 - i] != right[q - 1 - i - 1]) {
-            return 0;
-        }
-        if (left[i] == right[i]) {
-            return 0;
-        }
-    }
-
-    vector<int> merge;
+    int current_left = 0;
+    int current_right = n - 1;
 
     for (int i = 0; i < q; i++) {
-        if (left[i] != left[i + 1]) {
-            merge.push_back(left[i]);
+        int l = left[q - 1 - i];
+        int r = right[q - 1 - i];
+
+        int l_pos = index[l];
+        int r_pos = index[r];
+
+        if (l_pos >= r_pos) {
+            return 0;
         }
-    }
-    for (int i = 0; i < q; i++) {
-        if (right[q - 1 - i] != right[q - 1 - i - 1]) {
-            merge.push_back(right[q - 1 - i]);
-        }
-    }
 
-    int index = 0;
-    int count = 0;
-    for (int i : merge) {
-        while (index < n and i != array[index]) {
-            index++;
-        }
-        count++;
+        current_left = l_pos;
+        current_right = r_pos;
     }
-    if (count != merge.size()) {
-        return 0;
+    if (current_left == 0 and current_right == n - 1) {
+        return 1;
     }
 
-
-    return 1;
-
+    return 0;
 }
 
 

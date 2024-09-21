@@ -27,7 +27,7 @@ int isValidPermutation(int* array, int* left, int* right) {
         return 0;
     }
 
-    for (int i = 0; i < q; i++) {
+    for (int i = 0; i < q - 1; i++) {
         if (left[q - 1 - i] != left[q - 1 - i - 1] and right[q - 1 - i] != right[q - 1 - i - 1]) {
             return 0;
         }
@@ -37,10 +37,14 @@ int isValidPermutation(int* array, int* left, int* right) {
     auto merge_array = merge(left, right);
     for (int i = 0; i < 2 * q; i++) {
 
-
         while (array_index < n and merge_array[i] != array[array_index]) {
             array_index++;
         }
+
+//        if (merge_array[i + 1] == array[array_index + 1]) {
+//            cout <<"p";
+//            break;
+//        }
 
         if (i == q - 1 and merge_array[i + 1] == array[array_index + 1]) {
             break;

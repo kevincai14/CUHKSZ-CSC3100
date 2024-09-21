@@ -2,13 +2,11 @@
 // Created by Quan on 2024/9/19.
 //
 # include <iostream>
-#include <vector>
 #include <cstdint>
-#include <algorithm>
 using namespace std;
 
 int n,m,P;
-int* distinct_count = new int[1000000]();
+int* distinct_count;
 int distinct_value = 0;
 int sum = 0;
 
@@ -42,7 +40,7 @@ void update(int* array) {
     }
 }
 
-int check_distinct(int* array) {
+int check_distinct() {
     for (int i = 0; i < P; i++) {
         if (distinct_count[i] == 1 and i != 0) {
             distinct_value += 1;
@@ -77,6 +75,7 @@ int main() {
     int output_count = 0;
     int* array = new int[n];
     int* output = new int[m];
+    distinct_count = new int[P]();
 
     for (int i = 0; i < n; i++) {
         int temp;
@@ -86,7 +85,7 @@ int main() {
         distinct_count[abs(array[i])]++;
     }
 
-    check_distinct(array);
+    check_distinct();
 
     for (int i = 0; i < m; i++) {
         int command;

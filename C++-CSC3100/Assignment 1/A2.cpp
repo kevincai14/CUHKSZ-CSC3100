@@ -2,12 +2,10 @@
 // Created by Quan on 2024/9/21.
 //
 #include <iostream>
-#include <vector>
 #include <map>
 using namespace std;
 
 int n, q;
-
 
 int isValidPermutation(int* array, int* left, int* right) {
 
@@ -33,6 +31,7 @@ int isValidPermutation(int* array, int* left, int* right) {
         current_left = l_pos;
         current_right = r_pos;
     }
+
     if (current_left == 0 and current_right == n - 1) {
         return 1;
     }
@@ -59,7 +58,7 @@ int main() {
     }
 
     int a = isValidPermutation(array, left, right);
-    cout << a;
+    cout << a << endl;
 
     delete[] array;
     delete[] left;

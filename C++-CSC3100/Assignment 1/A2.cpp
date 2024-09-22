@@ -14,25 +14,25 @@ int isValidPermutation(int* array, int* left, int* right) {
         index[array[i]] = i;
     }
 
-    int current_left = 0;
-    int current_right = n - 1;
+    int left_bound = 0;
+    int right_bound = n - 1;
 
     for (int i = 0; i < q; i++) {
         int l = left[q - 1 - i];
         int r = right[q - 1 - i];
 
-        int l_pos = index[l];
-        int r_pos = index[r];
+        int l_index = index[l];
+        int r_index = index[r];
 
-        if (l_pos >= r_pos) {
+        if (l_index >= r_index) {
             return 0;
         }
 
-        current_left = l_pos;
-        current_right = r_pos;
+        left_bound = l_index;
+        right_bound = r_index;
     }
 
-    if (current_left == 0 and current_right == n - 1) {
+    if (left_bound == 0 and right_bound == n - 1) {
         return 1;
     }
 

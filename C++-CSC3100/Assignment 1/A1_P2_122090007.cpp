@@ -7,15 +7,14 @@ using namespace std;
 
 int n, q;
 
-int isValidPermutation(int* array, int* left, int* right) {
+int check_valid(int* array, int* left, int* right) {
 
     map<int, int> index;
     for (int i = 0; i < n; i++) {
         index[array[i]] = i;
     }
 
-    int left_bound = 0;
-    int right_bound = n - 1;
+    int left_bound, right_bound;
 
     for (int i = 0; i < q; i++) {
         int l = left[q - 1 - i];
@@ -26,17 +25,18 @@ int isValidPermutation(int* array, int* left, int* right) {
 
         if (l_index >= r_index) {
             return 0;
+        } else {
+            left_bound = l_index;
+            right_bound = r_index;
         }
-
-        left_bound = l_index;
-        right_bound = r_index;
     }
 
     if (left_bound == 0 and right_bound == n - 1) {
         return 1;
+    } else {
+        return 0;
     }
 
-    return 0;
 }
 
 
@@ -57,8 +57,8 @@ int main() {
         cin >> right[i];
     }
 
-    int a = isValidPermutation(array, left, right);
-    cout << a << endl;
+    int status = check_valid(array, left, right);
+    cout << status << endl;
 
     delete[] array;
     delete[] left;

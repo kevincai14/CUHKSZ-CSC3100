@@ -21,7 +21,7 @@ int* merge(int* left, int* right) {
 
 
 
-int isValidPermutation(int* array, int* left, int* right) {
+int check_valid(int* array, int* left, int* right) {
     int count = 0;
     int array_index = 0;
 

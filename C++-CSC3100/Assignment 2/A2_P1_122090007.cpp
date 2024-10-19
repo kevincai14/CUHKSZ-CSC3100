@@ -2,7 +2,6 @@
 // Created by Quan on 2024/10/19.
 //
 #include <iostream>
-#include <vector>
 #include <queue>
 using namespace std;
 
@@ -19,7 +18,6 @@ int check_list(int* A, int* A_num_count, int result = 0) {
     if (delete_num.empty()) {
         return result;
     }
-
 
     while (!delete_num.empty()) {
         int index = delete_num.front();

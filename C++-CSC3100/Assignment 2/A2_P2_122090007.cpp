@@ -25,7 +25,6 @@ void list_update(vector<int> & complexity_list, int index) {
     complexity_list[index] += max_num;
 }
 
-
 int complexity_check() {
     int L;
     cin >> L;

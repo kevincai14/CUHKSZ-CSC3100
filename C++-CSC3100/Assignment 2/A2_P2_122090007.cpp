@@ -5,36 +5,31 @@
 #include <cctype>
 #include <vector>
 #include <stack>
-#include <algorithm>
 using namespace std;
 
 int n;
 
-int max_f(vector<int> complexity_list, int index) {
+void list_update(vector<int> & complexity_list, int index) {
+    int max_num;
     if (index + 1 == complexity_list.size()) {
-        return 0;
+        max_num = 0;
     } else {
-        int max_num = 0;
+        max_num = 0;
         for (int i = index + 1; i < complexity_list.size(); i++) {
             if (complexity_list[i] > max_num) {
                 max_num = complexity_list[i];
+                complexity_list[i] = 0;
             }
         }
-        return max_num;
     }
+    complexity_list[index] += max_num;
 }
 
-void fill0(vector<int> & complexity_list, int index) {
-    if (index + 1 == complexity_list.size()) {
-        complexity_list = complexity_list;                      //fixxxxxxxxxxxxxxxxxx
-    } else {
-        for (int i = index + 1; i < complexity_list.size(); i++) {
-            complexity_list[i] = 0;
-        }
-    }
-}
 
-int check_loop(int L) {
+int complexity_check() {
+    int L;
+    cin >> L;
+
     string F, i, x, y;
     int end_count = 0;
     int F_count = 0;
@@ -45,11 +40,11 @@ int check_loop(int L) {
         cin >> F;
         if (F == "F") {
             cin >> i >> x >> y;
-            F_index.push(F_count);
-            F_count++;                   //combine with above F_index.push(F_count++)
-            bool xy_state = isdigit(x[0]) and isdigit(y[0]);
+            F_index.push(F_count++);
 
-            if (x != y and !xy_state) {
+            bool xy_isdigit = isdigit(x[0]) and isdigit(y[0]);
+
+            if (x != y and !xy_isdigit) {
                 complexity_list.push_back(1);
             } else {
                 complexity_list.push_back(0);
@@ -59,9 +54,7 @@ int check_loop(int L) {
             end_count++;
 
             int index = F_index.top();
-            int max_num = max_f(complexity_list, index);
-            complexity_list[index] += max_num;
-            fill0(complexity_list, index);
+            list_update(complexity_list, index);
 
             F_index.pop();
 
@@ -70,13 +63,6 @@ int check_loop(int L) {
             }
         }
     }
-
-}
-
-int complexity_check() {
-    int L;
-    cin >> L;
-    return check_loop(L);
 }
 
 

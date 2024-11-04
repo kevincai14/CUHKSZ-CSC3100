@@ -2,6 +2,7 @@
 // Created by Quan on 2024/10/29.
 //
 #include <iostream>
+#include <vector>
 using namespace std;
 class Node {
 public:
@@ -43,12 +44,38 @@ void Node:: add(int index, int i) {
     current->next->next = temp;
 }
 
+bool check_cycle(Node* list1, Node* list2) {
+    vector<Node*> result;
+    Node* current1 = list1;
+    Node* current2 = list2;
+    while (current1 != nullptr) {
+        result.push_back(current1);
+        current1 = current1->next;
+    }
+    while (current2 != nullptr) {
+        for (Node* i: result) {
+            if (current2 == i) {
+                return true;
+            }
+        }
+        current2 = current2->next;
+    }
+    return false;
+}
+
 
 int main() {
     Node* head = new Node(1);
     head->add(2);
     head->add(3);
     head->add(2,9);
-//    cout << "Node data: " << a->next->data << endl;
-    head->show();
+
+    Node * current = head->next->next->next;
+    Node* head2 = new Node(1);
+    head2->add(3);
+    head2->add(3);
+    head2->next->next->next = current;
+    head2->show();
+
+    cout << check_cycle(head, head2);
 }

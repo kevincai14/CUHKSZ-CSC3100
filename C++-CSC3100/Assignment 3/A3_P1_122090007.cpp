@@ -38,7 +38,8 @@ void insert(Node* root, int u, int v, int w) {
     if (current == nullptr) {
         current = search(root, v);
         insert_node = new Node(u, w);
-    }
+        return;
+    }//porblem!!!!!!!!!!!!!!!!!!!!!!!
 
     if (current->first_child != nullptr) {
         current = current->first_child;
@@ -55,10 +56,10 @@ void hp_count(Node* root, int mp = 0, int hp = 0) {
     if (root == nullptr) {
         return;
     }
-    hp = hp + max(0, root->attack_power - mp);
-    max_hp = max(hp, max_hp);
+    int hp_new = hp + max(0, root->attack_power - mp);
+    max_hp = max(hp_new, max_hp);
 
-    hp_count(root->first_child, mp + 1, hp);
+    hp_count(root->first_child, mp + 1, hp_new);
     hp_count(root->next_sibling, mp, hp);
 }
 
@@ -66,6 +67,13 @@ int find_min_hp(Node* root) {
     hp_count(root);
     return max_hp;
 }
+
+//void printTree(Node* node, int level = 0) {
+//    if (node == nullptr) return;
+//    cout << string(level * 4, ' ') << "Node " << node->node_num << ", Attack Power: " << node->attack_power << endl;
+//    printTree(node->first_child, level + 1);
+//    printTree(node->next_sibling, level);
+//}
 
 int main() {
     int n, m, t;
@@ -76,6 +84,7 @@ int main() {
         cin >> u >> v >> w;
         insert(root, u, v, w);
     }
+//    printTree(root);
     cout << find_min_hp(root);
 
     delete root;

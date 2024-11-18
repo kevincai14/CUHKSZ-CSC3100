@@ -92,23 +92,35 @@ double max_value(Node* start_node, int used_bag_size = bag_size) {
     used_bag_size = min(used_bag_size, n);
 
     Node* current = start_node;
-    for (int i = 0; i < circle_length; i++) {
-        double value = 0;
-        Node* bag_node = current;
 
-        int* shelf_count = new int[k]();
-        for (int j = 0; j < used_bag_size; j++) {
-            value += bag_node->value;
-            shelf_count[bag_node->shelf_num]++;
+    double value = 0;
+    Node* bag_node = current;
+    int* shelf_count = new int[k]();
+    for (int j = 0; j < used_bag_size; j++) {
+        value += bag_node->value;
+        shelf_count[bag_node->shelf_num]++;
 
-            bag_node = bag_node->next_node;
-        }
-        if (check_same(shelf_count, k)) {
-            value = 0;
-        }
-        delete[] shelf_count;
-        current = current->next_node;
+        bag_node = bag_node->next_node;
+    }
+    if (!check_same(shelf_count, k)) {
         max_take_away_value = max(max_take_away_value, value);
+    }
+
+
+    for (int i = 1; i < circle_length; i++) {
+        value -= current->value;
+        shelf_count[current->shelf_num]--;
+
+        current = current->next_node;
+
+        value += bag_node->value;
+        shelf_count[bag_node->shelf_num]++;
+        bag_node = bag_node->next_node;
+
+        if (!check_same(shelf_count, k)) {
+            max_take_away_value = max(max_take_away_value, value);
+        }
+
     }
 
     if (max_take_away_value == 0) {

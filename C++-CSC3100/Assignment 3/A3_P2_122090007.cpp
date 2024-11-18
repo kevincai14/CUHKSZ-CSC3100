@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include <iomanip>
+#include <unordered_set>
 using namespace std;
 
 int n, k, bag_size, circle_length;
@@ -67,21 +68,22 @@ void connect_shelf(Node** hash_table) {
 }
 
 bool check_same(int arr[], int size) {
+    unordered_set<int> seen;
     for (int i = 0; i < size; i++) {
-        if (arr[i] == 0) continue;
-        for (int j = i + 1; j < size; j++) {
-            if (arr[i] == arr[j]) {
+        if (arr[i] != 0) {
+            if (seen.find(arr[i]) != seen.end()) {
                 return true;
             }
+            seen.insert(arr[i]);
         }
     }
-//    for (int i=0;i<size;i++) {
-//        cout << arr[i];
-//    }
     return false;
 }
 
 double max_value(Node* start_node, int used_bag_size = bag_size) {
+    if (bag_size == 0) {
+        return 0;
+    }
     used_bag_size = min(used_bag_size, n);
 
     Node* current = start_node;
@@ -147,9 +149,9 @@ int main() {
         cin >> item_id >> value;
         add_items(item_id, value, hash_table);
     }
-//    show(hash_table);
+    show(hash_table);
     connect_shelf(hash_table);
-//    show(hash_table[0]);
+    show(hash_table[0]);
 
     double result = max_value(hash_table[0]);
     cout << fixed << setprecision(1) << result;

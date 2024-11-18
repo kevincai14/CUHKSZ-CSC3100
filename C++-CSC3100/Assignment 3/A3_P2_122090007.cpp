@@ -47,19 +47,24 @@ void connect_shelf(Node** hash_table) {
         while (current->next_node != nullptr) {
             current = current->next_node;
         }
-        if (current->item_id != 0 and hash_table[(i + 1) % k]->item_id == 0) {
-            if (hash_table[(i + 2) % k]->item_id != 0) {
-                current->next_node = hash_table[(i + 2) % k];
-                hash_table[(i + 1) % k] = current;
-                i++;
-                continue;
-            }
-        }
         current->next_node = hash_table[(i + 1) % k];
     }
 
     Node* current = hash_table[0];
+//    while (current->item_id == 0) {
+//        current = current->next_node;
+//    }
+//    hash_table[0] = current;
     Node* mark = hash_table[0];
+//    while (current->next_node != mark) {
+//        if (current->item_id != 0 and current->next_node->item_id == 0 and current->next_node->next_node->item_id != 0) {
+//            current->next_node = current->next_node->next_node;
+//        }
+//        current = current->next_node;
+//    }
+
+    current = hash_table[0];
+    mark = hash_table[0];
     circle_length = 1;
     while (current->next_node != mark) {
         current = current->next_node;

@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.27"
@@ -32,8 +32,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/Quan/GitHub/CUHKSZ-CSC3100/C++-CSC3100/cmake-build-debug",
-		"source" : "C:/Users/Quan/GitHub/CUHKSZ-CSC3100/C++-CSC3100"
+		"build" : "/Users/camellia/Documents/GitHub/CUHKSZ-CSC3100/C++-CSC3100/cmake-build-debug",
+		"source" : "/Users/camellia/Documents/GitHub/CUHKSZ-CSC3100/C++-CSC3100"
 	},
 	"version" : 
 	{

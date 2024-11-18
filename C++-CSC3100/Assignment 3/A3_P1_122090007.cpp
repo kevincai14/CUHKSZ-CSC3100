@@ -7,12 +7,11 @@ using namespace std;
 int max_hp = 0;
 
 struct Node {
-    int node_num;
     int attack_power;
     Node* first_child;
     Node* next_sibling;
 
-    Node(int node_num, int attack_power = 0) : node_num(node_num), attack_power(attack_power), first_child(nullptr), next_sibling(nullptr) {}
+    Node(int attack_power = 0) : attack_power(attack_power), first_child(nullptr), next_sibling(nullptr) {}
 };
 
 void insert(Node** node_array, int u, int v, int w) {
@@ -36,9 +35,7 @@ void hp_count(Node* root, int mp = 0, int hp = 0) {
         return;
     }
     int hp_new = hp + max(0, root->attack_power - mp);
-    if (hp_new > max_hp) {
-        max_hp = hp_new;
-    }
+    max_hp = max(max_hp, hp_new);
 
     hp_count(root->first_child, mp + 1, hp_new);
     hp_count(root->next_sibling, mp, hp);
@@ -50,7 +47,7 @@ int main() {
     Node** node_array = new Node*[n];
 
     for (int i = 0; i < n; i++) {
-        Node* node = new Node(i + 1);
+        Node* node = new Node();
         node_array[i] = node;
     }
     Node* root = node_array[0];

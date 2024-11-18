@@ -1,2 +1,2 @@
-C:/Users/Quan/GitHub/CUHKSZ-CSC3100/C++-CSC3100/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Quan/GitHub/CUHKSZ-CSC3100/C++-CSC3100/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/camellia/Documents/GitHub/CUHKSZ-CSC3100/C++-CSC3100/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/camellia/Documents/GitHub/CUHKSZ-CSC3100/C++-CSC3100/cmake-build-debug/CMakeFiles/rebuild_cache.dir

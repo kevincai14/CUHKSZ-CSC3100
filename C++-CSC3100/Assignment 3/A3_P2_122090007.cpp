@@ -2,9 +2,11 @@
 // Created by Quan on 2024/11/18.
 //
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
-int n, k, bag_size;
+int n, k, bag_size, circle_length;
+double max_take_away_value = 0;
 
 struct Node {
     int shelf_num;
@@ -20,19 +22,94 @@ void add_items(int item_id, double value, Node** hash_table) {
     Node* new_node = new Node(shelf_num, item_id, value);
     Node* current = hash_table[shelf_num];
 
-    if (current->item_id > item_id) {
-        while (current->next_node->value > item_id) {
-            if (current->next_node->next_node != nullptr) {
-                current = current->next_node;
+    if (current->item_id < item_id) {
+        if (current->item_id == 0) {
+            hash_table[shelf_num] = new_node;
+            return;
+        }
+        new_node->next_node = current;
+        hash_table[shelf_num] = new_node;
+        return;
+    }
+
+    while (current->next_node != nullptr and current->next_node->item_id > item_id) {
+        current = current->next_node;
+    }
+
+    new_node->next_node = current->next_node;
+    current->next_node = new_node;
+}
+
+void connect_shelf(Node** hash_table) {
+    for (int i = 0; i < k; i++) {
+        Node* current = hash_table[i];
+        while (current->next_node != nullptr) {
+            current = current->next_node;
+        }
+        if (current->item_id != 0 and hash_table[(i + 1) % k]->item_id == 0) {
+            if (hash_table[(i + 2) % k]->item_id != 0) {
+                current->next_node = hash_table[(i + 2) % k];
+                hash_table[(i + 1) % k] = current;
+                i++;
+                continue;
             }
         }
-        Node* temp = current->next_node;
-        current->next_node = new_node;
-        new_node->next_node = temp;
-    } else {
-        hash_table[shelf_num] = new_node;
-        new_node->next_node = current;
+        current->next_node = hash_table[(i + 1) % k];
     }
+
+    Node* current = hash_table[0];
+    Node* mark = hash_table[0];
+    circle_length = 1;
+    while (current->next_node != mark) {
+        current = current->next_node;
+        circle_length++;
+    }
+}
+
+bool check_same(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == 0) continue;
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] == arr[j]) {
+                return true;
+            }
+        }
+    }
+//    for (int i=0;i<size;i++) {
+//        cout << arr[i];
+//    }
+    return false;
+}
+
+double max_value(Node* start_node, int used_bag_size = bag_size) {
+    used_bag_size = min(used_bag_size, n);
+
+    Node* current = start_node;
+    for (int i = 0; i < circle_length; i++) {
+        double value = 0;
+        Node* bag_node = current;
+
+        int* shelf_count = new int[k]();
+        for (int j = 0; j < used_bag_size; j++) {
+            value += bag_node->value;
+            shelf_count[bag_node->shelf_num]++;
+
+            bag_node = bag_node->next_node;
+        }
+        if (check_same(shelf_count, k)) {
+            value = 0;
+        }
+        delete[] shelf_count;
+        current = current->next_node;
+        max_take_away_value = max(max_take_away_value, value);
+    }
+
+    if (max_take_away_value == 0) {
+        used_bag_size--;
+        return max_value(start_node, used_bag_size);
+    }
+
+    return max_take_away_value;
 }
 
 void show(Node** hash_table) {
@@ -47,22 +124,37 @@ void show(Node** hash_table) {
     }
 }
 
+void show(Node* shelf) {
+    auto current = shelf;
+    for (int i = 0; i < circle_length; i++) {
+        cout << current->item_id << ' ';
+        current = current->next_node;
+    }
+    cout << endl;
+}
+
 int main() {
     cin >> n >> k >> bag_size;
 
     int item_id;
     double value;
-    Node** hash_table = new Node*[n];
+    Node** hash_table = new Node*[k];
 
     for (int i = 0; i < k; i++) {
-        hash_table[i] = new Node(0, 0, 0);
+        hash_table[i] = new Node(i, 0, 0);
     }
     for (int i = 0; i < n; i++) {
         cin >> item_id >> value;
         add_items(item_id, value, hash_table);
     }
-    show(hash_table);
-    for (int i = 0; i < n; i++) {
+//    show(hash_table);
+    connect_shelf(hash_table);
+//    show(hash_table[0]);
+
+    double result = max_value(hash_table[0]);
+    cout << fixed << setprecision(1) << result;
+
+    for (int i = 0; i < k; i++) {
         delete hash_table[i];
     }
     delete[] hash_table;

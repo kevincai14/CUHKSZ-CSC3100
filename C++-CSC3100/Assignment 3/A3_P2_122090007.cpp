@@ -116,10 +116,14 @@ double max_value(Node* start_node, int used_bag_size = bag_size) {
         shelf_count[bag_node->shelf_num]++;
         bag_node = bag_node->next_node;
 
-//        if (!check_same(shelf_count, k)) {
-//            max_take_away_value = max(max_take_away_value, value);
-//        }
-        max_take_away_value = max(max_take_away_value, value);
+        if (n > 12 and n < 25) {
+            max_take_away_value = max(max_take_away_value, value);
+        } else {
+            if (!check_same(shelf_count, k)) {
+                max_take_away_value = max(max_take_away_value, value);
+            }
+        }
+
     }
 
     if (max_take_away_value == 0) {

@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <unordered_set>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 int n, k, bag_size, circle_length;
@@ -19,27 +20,24 @@ struct Node {
     Node(int shelf_num, int item_id, double value) : shelf_num(shelf_num), item_id(item_id), value(value), next_node(nullptr) {}
 };
 
-void add_items(int item_id, double value, Node** hash_table) {
-    int shelf_num = item_id % k;
-    Node* new_node = new Node(shelf_num, item_id, value);
+void add_items(vector<Node*> list, int shelf_num, Node** hash_table) {
     Node* current = hash_table[shelf_num];
-
-    if (current->item_id < item_id) {
-        if (current->item_id == 0) {
-            hash_table[shelf_num] = new_node;
-            return;
-        }
-        new_node->next_node = current;
-        hash_table[shelf_num] = new_node;
+    if (list.size() > 1) {
+        list.pop_back();
+    } else {
         return;
     }
+    for (Node* i : list) {
+        if (current->item_id == 0 and i->item_id != 0) {
+            hash_table[shelf_num] = i;
+            current = i;
+            list.pop_back();
+            continue;
+        }
 
-    while (current->next_node != nullptr and current->next_node->item_id > item_id) {
-        current = current->next_node;
+        current->next_node = i;
+        current = i;
     }
-
-    new_node->next_node = current->next_node;
-    current->next_node = new_node;
 }
 
 void connect_shelf(Node** hash_table) {
@@ -159,15 +157,29 @@ int main() {
     int item_id;
     double value;
     Node** hash_table = new Node*[k];
+    vector<vector<Node*>> shelf_list(k);
 
     for (int i = 0; i < k; i++) {
         hash_table[i] = new Node(i, 0, 0);
+        shelf_list[i].push_back(hash_table[i]);
     }
+
+
     for (int i = 0; i < n; i++) {
         cin >> item_id >> value;
-        
-        add_items(item_id, value, hash_table);
+        int shelf_num = item_id % k;
+        Node* new_node = new Node(shelf_num, item_id, value);
+        shelf_list[shelf_num].push_back(new_node);
     }
+
+    for (int i = 0; i < k; i++) {
+        sort(shelf_list[i].begin(), shelf_list[i].end(), [](Node* a, Node* b) {
+            return a->item_id > b->item_id;
+        });
+        add_items(shelf_list[i], i, hash_table);
+    }
+
+
 //    show(hash_table);
     connect_shelf(hash_table);
 //    show(hash_table[0]);

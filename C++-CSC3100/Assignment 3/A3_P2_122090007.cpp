@@ -10,7 +10,7 @@ using namespace std;
 
 int n, k, bag_size, circle_length;
 double max_take_away_value = 0;
-unordered_set<int> invalid_value;
+unordered_set<double> invalid_value;
 
 struct Node {
     int shelf_num;
@@ -86,7 +86,7 @@ bool check_same(int arr[], int size) {
 }
 
 double max_value(Node* start_node, int used_bag_size = bag_size) {
-    if (bag_size == 0) {
+    if (used_bag_size == 0) {
         return 0;
     }
     used_bag_size = min(used_bag_size, n);
@@ -95,7 +95,7 @@ double max_value(Node* start_node, int used_bag_size = bag_size) {
 
     double value = 0;
     double temp_max= 0;
-    int* max_shelf_record = new int[k];
+    int* max_shelf_record = new int[k]();
     Node* bag_node = current;
     int* shelf_count = new int[k]();
     for (int j = 0; j < used_bag_size; j++) {
@@ -121,18 +121,22 @@ double max_value(Node* start_node, int used_bag_size = bag_size) {
         value += bag_node->value;
         shelf_count[bag_node->shelf_num]++;
         bag_node = bag_node->next_node;
-
+//        cout << "round value:" << value << endl;
+//        cout << "if in set "  << (invalid_value.find(value) == invalid_value.end()) << endl;
         if (value > temp_max and invalid_value.find(value) == invalid_value.end()) {
             for (int j = 0; j < k; j++) {
                 max_shelf_record[j] = shelf_count[j];
             }
             temp_max = value;
+//            cout << "temp max renew " << temp_max << endl;
         }
-
+//        cout << "        round " << i << "  tempmax " <<temp_max <<endl;
+//        cout << endl;
     }
 
     if (check_same(max_shelf_record, k)) {
         invalid_value.insert(temp_max);
+//        cout << "      delete" << temp_max << endl;
         return max_value(start_node, used_bag_size);
     }
 

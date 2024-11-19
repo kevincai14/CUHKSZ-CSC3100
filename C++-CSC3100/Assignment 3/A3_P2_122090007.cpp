@@ -74,6 +74,9 @@ void connect_shelf(Node** hash_table) {
 
 bool check_same(int arr[], int size) {
     unordered_set<int> seen;
+    if (arr[0] == -1) {
+        return false;
+    }
     for (int i = 0; i < size; i++) {
         if (arr[i] != 0) {
             if (seen.find(arr[i]) != seen.end()) {
@@ -95,7 +98,10 @@ double max_value(Node* start_node, int used_bag_size = bag_size) {
 
     double value = 0;
     double temp_max= 0;
-    int* max_shelf_record = new int[k]();
+    int* max_shelf_record = new int[k];
+    for (int i = 0; i < k; ++i) {
+        max_shelf_record[i] = -1;
+    }
     Node* bag_node = current;
     int* shelf_count = new int[k]();
     for (int j = 0; j < used_bag_size; j++) {

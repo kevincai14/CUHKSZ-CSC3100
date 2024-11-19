@@ -6,25 +6,20 @@
 #include <unordered_set>
 using namespace std;
 
-void add_items(int item_id, double value, Node** hash_table) {
-    int shelf_num = item_id % k;
-    Node* new_node = new Node(shelf_num, item_id, value);
-    Node* current = hash_table[shelf_num];
-
-    if (current->item_id < item_id) {
-        if (current->item_id == 0) {
-            hash_table[shelf_num] = new_node;
-            return;
+bool check_same(int arr[], int size) {
+    unordered_set<int> seen;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] != 0) {
+            if (seen.find(arr[i]) != seen.end()) {
+                return true;
+            }
+            seen.insert(arr[i]);
         }
-        new_node->next_node = current;
-        hash_table[shelf_num] = new_node;
-        return;
     }
+    return false;
+}
 
-    while (current->next_node != nullptr and current->next_node->item_id > item_id) {
-        current = current->next_node;
-    }
-
-    new_node->next_node = current->next_node;
-    current->next_node = new_node;
+int main() {
+    int array[] = {2, 3, 1, 0};
+    cout << check_same(array, 4);
 }

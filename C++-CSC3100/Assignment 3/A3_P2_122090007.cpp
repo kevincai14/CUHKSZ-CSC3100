@@ -105,7 +105,6 @@ double max_value(Node* start_node, int used_bag_size = bag_size) {
         max_take_away_value = max(max_take_away_value, value);
     }
 
-
     for (int i = 1; i < circle_length; i++) {
         value -= current->value;
         shelf_count[current->shelf_num]--;
@@ -130,26 +129,26 @@ double max_value(Node* start_node, int used_bag_size = bag_size) {
     return max_take_away_value;
 }
 
-void show(Node** hash_table) {
-    for (int i = 0; i < k; i++) {
-        auto current = hash_table[i];
-        while (current->next_node != nullptr) {
-            cout << current->item_id << ' ';
-            current = current->next_node;
-        }
-        cout << current->item_id << ' ';
-        cout << endl;
-    }
-}
-
-void show(Node* shelf) {
-    auto current = shelf;
-    for (int i = 0; i < circle_length; i++) {
-        cout << current->item_id << ' ';
-        current = current->next_node;
-    }
-    cout << endl;
-}
+//void show(Node** hash_table) {
+//    for (int i = 0; i < k; i++) {
+//        auto current = hash_table[i];
+//        while (current->next_node != nullptr) {
+//            cout << current->item_id << ' ';
+//            current = current->next_node;
+//        }
+//        cout << current->item_id << ' ';
+//        cout << endl;
+//    }
+//}
+//
+//void show(Node* shelf) {
+//    auto current = shelf;
+//    for (int i = 0; i < circle_length; i++) {
+//        cout << current->item_id << ' ';
+//        current = current->next_node;
+//    }
+//    cout << endl;
+//}
 
 int main() {
     cin >> n >> k >> bag_size;
@@ -192,5 +191,5 @@ int main() {
 //    }
 //    delete[] hash_table;
 
-    system("pause");
+//    system("pause");
 }

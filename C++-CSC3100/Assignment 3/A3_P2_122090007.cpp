@@ -10,6 +10,7 @@ using namespace std;
 
 int n, k, bag_size, circle_length;
 double max_take_away_value = 0;
+unordered_set<int> invalid_value;
 
 struct Node {
     int shelf_num;
@@ -93,6 +94,8 @@ double max_value(Node* start_node, int used_bag_size = bag_size) {
     Node* current = start_node;
 
     double value = 0;
+    double temp_max= 0;
+    int* max_shelf_record = new int[k];
     Node* bag_node = current;
     int* shelf_count = new int[k]();
     for (int j = 0; j < used_bag_size; j++) {
@@ -101,8 +104,12 @@ double max_value(Node* start_node, int used_bag_size = bag_size) {
 
         bag_node = bag_node->next_node;
     }
-    if (!check_same(shelf_count, k)) {
-        max_take_away_value = max(max_take_away_value, value);
+
+    if (value > temp_max and invalid_value.find(value) == invalid_value.end()) {
+        for (int j = 0; j < k; j++) {
+            max_shelf_record[j] = shelf_count[j];
+        }
+        temp_max = value;
     }
 
     for (int i = 1; i < circle_length; i++) {
@@ -115,17 +122,26 @@ double max_value(Node* start_node, int used_bag_size = bag_size) {
         shelf_count[bag_node->shelf_num]++;
         bag_node = bag_node->next_node;
 
-        if (!check_same(shelf_count, k)) {
-            max_take_away_value = max(max_take_away_value, value);
+        if (value > temp_max and invalid_value.find(value) == invalid_value.end()) {
+            for (int j = 0; j < k; j++) {
+                max_shelf_record[j] = shelf_count[j];
+            }
+            temp_max = value;
         }
 
     }
 
-    if (max_take_away_value == 0) {
+    if (check_same(max_shelf_record, k)) {
+        invalid_value.insert(temp_max);
+        return max_value(start_node, used_bag_size);
+    }
+
+    if (temp_max == 0) {
         used_bag_size--;
         return max_value(start_node, used_bag_size);
     }
 
+    max_take_away_value = temp_max;
     return max_take_away_value;
 }
 

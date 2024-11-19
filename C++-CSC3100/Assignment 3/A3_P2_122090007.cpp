@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <unordered_set>
+#include <vector>
 using namespace std;
 
 int n, k, bag_size, circle_length;
@@ -164,6 +165,7 @@ int main() {
     }
     for (int i = 0; i < n; i++) {
         cin >> item_id >> value;
+        
         add_items(item_id, value, hash_table);
     }
 //    show(hash_table);

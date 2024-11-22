@@ -71,14 +71,14 @@ void connect_shelf(Node** hash_table) {
     }
 }
 
-bool check_same(int arr[], int size) {
-    unordered_set<int> seen;
-    for (int i = 0; i < size; i++) {
-        if (arr[i] != 0) {
-            if (seen.find(arr[i]) != seen.end()) {
+bool check_same(int shelf_count[]) {
+    unordered_set<int> exist_set;
+    for (int i = 0; i < k; i++) {
+        if (shelf_count[i] != 0) {
+            if (exist_set.find(shelf_count[i]) != exist_set.end()) {
                 return true;
             }
-            seen.insert(arr[i]);
+            exist_set.insert(shelf_count[i]);
         }
     }
     return false;
@@ -101,7 +101,7 @@ double max_value(Node* start_node, int used_bag_size = bag_size) {
 
         bag_node = bag_node->next_node;
     }
-    if (!check_same(shelf_count, k)) {
+    if (!check_same(shelf_count)) {
         max_take_away_value = max(max_take_away_value, value);
     }
 
@@ -118,7 +118,7 @@ double max_value(Node* start_node, int used_bag_size = bag_size) {
         if (n > 12 and n < 25) {
             max_take_away_value = max(max_take_away_value, value);
         } else {
-            if (!check_same(shelf_count, k)) {
+            if (!check_same(shelf_count)) {
                 max_take_away_value = max(max_take_away_value, value);
             }
         }

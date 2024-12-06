@@ -9,8 +9,7 @@ using namespace std;
 
 int n, m, q;
 
-vector<vector<int>> dfs(int s, int t, vector<vector<int>>& adjacency_matrix, vector<int>& current_path, vector<bool>& visited) {
-    vector<vector<int>> all_path;
+void dfs(int s, int t, vector<vector<int>>& adjacency_matrix, vector<int>& current_path, vector<bool>& visited, vector<vector<int>>& all_path) {
     current_path.push_back(s);
     visited[s] = true;
 
@@ -19,21 +18,20 @@ vector<vector<int>> dfs(int s, int t, vector<vector<int>>& adjacency_matrix, vec
     } else {
         for (int neighbor = 0; neighbor < adjacency_matrix[s].size(); ++neighbor) {
             if (adjacency_matrix[s][neighbor] != INT32_MAX && !visited[neighbor]) {
-                vector<vector<int>> sub_paths = dfs(neighbor, t, adjacency_matrix, current_path, visited);
-                all_path.insert(all_path.end(), sub_paths.begin(), sub_paths.end());
+                dfs(neighbor, t, adjacency_matrix, current_path, visited, all_path);
             }
         }
     }
 
     current_path.pop_back();
     visited[s] = false;
-    return all_path;
 }
 
 int max_min_path(int s, int t, vector<vector<int>>& adjacency_matrix) {
     vector<int> current_path;
     vector<bool> visited(n, false);
-    vector<vector<int>> all_path = dfs(s, t, adjacency_matrix, current_path, visited);
+    vector<vector<int>> all_path;
+    dfs(s, t, adjacency_matrix, current_path, visited, all_path);
 //    for (auto i: all_path) {
 //        for (auto j :i) {
 //            cout << j+1 << " ";

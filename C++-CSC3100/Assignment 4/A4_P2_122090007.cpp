@@ -119,9 +119,11 @@ int main() {
                 int w = get<2>(j);
 //                cout << w << endl;
 //                cout << endl;
-                if (u <= n and v <= n and w >=0) {
-                    adjacency_matrix[u - 1][v - 1] = w;
-                    adjacency_matrix[v - 1][u - 1] = w;
+                if (u <= n and u>=1 and v >= 1 and v <= n and w >=0) {
+                    if (adjacency_matrix[u - 1][v - 1] != INT32_MAX) {
+                        adjacency_matrix[u - 1][v - 1] = w;
+                        adjacency_matrix[v - 1][u - 1] = w;
+                    }
                 }
             }
         }

@@ -31,10 +31,11 @@ vector<vector<int>> dfs(int s, int t, vector<vector<int>>& adjacency_matrix, vec
 int main() {
     int q = INT32_MAX; // 定义无穷大值
     vector<vector<int>> adjacency_matrix = {
-            {q, 2, 3, 6},  // 节点 0 的邻居
-            {2, q, 1, q},  // 节点 1 的邻居
-            {3, 1, q, 4},  // 节点 2 的邻居
-            {6, q, 4, q},  // 节点 3 的邻// 节点 4 的邻居
+            {q, 2, 3, 6, q},  // 节点 0 的邻居
+            {2, q, 1, q, 1},  // 节点 1 的邻居
+            {3, 1, q, 4, 1},  // 节点 2 的邻居
+            {6, q, 4, q, 1},
+            {q, 1, 1, 1 , q}// 节点 3 的邻// 节点 4 的邻居
     };
 
     int start = 0, end = 3;  // 起点和终点
@@ -51,7 +52,7 @@ int main() {
     } else {
         for (const auto& path : all_paths) {
             for (int node : path) {
-                cout << node << " ";
+                cout << node+1 << " ";
             }
             cout << endl;
         }

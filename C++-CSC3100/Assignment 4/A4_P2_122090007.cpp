@@ -119,21 +119,23 @@ int main() {
                 int w = get<2>(j);
 //                cout << w << endl;
 //                cout << endl;
-                adjacency_matrix[u - 1][v - 1] = w;
-                adjacency_matrix[v - 1][u - 1] = w;
-            }
-        }
-        for (auto k:adjacency_matrix) {
-            for (auto j: k) {
-                if (j == INT32_MAX) {
-                    cout << "q" << " ";
-                } else {
-                    cout << j << " ";
+                if (u <= n and v <= n and w >=0) {
+                    adjacency_matrix[u - 1][v - 1] = w;
+                    adjacency_matrix[v - 1][u - 1] = w;
                 }
             }
-            cout << endl;
         }
-        cout << endl;
+//        for (auto k:adjacency_matrix) {
+//            for (auto j: k) {
+//                if (j == INT32_MAX) {
+//                    cout << "q" << " ";
+//                } else {
+//                    cout << j << " ";
+//                }
+//            }
+//            cout << endl;
+//        }
+//        cout << endl;
         int max_min_cost = max_min_path(s - 1, t - 1, adjacency_matrix);
         result.push_back(max_min_cost);
     }

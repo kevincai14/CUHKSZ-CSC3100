@@ -44,9 +44,6 @@ vector<vector<int>> generateAllPaths(vector<pair<int, int>> pairs) {
     return results;
 }
 
-
-
-
 int minDistance(vector<int>& dist, vector<bool>& final) {
     int min_cost = INT32_MAX;
     int min_index = INT32_MAX;

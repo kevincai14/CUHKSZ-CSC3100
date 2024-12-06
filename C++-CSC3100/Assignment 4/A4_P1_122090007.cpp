@@ -62,6 +62,9 @@ int minDistance(vector<int>& dist, vector<bool>& final) {
 
 
 int dijkstra(int s, int t, vector<vector<int>>& adjacency_matrix) {
+    if (s == t) {
+        return 0;
+    }
     vector<int> dist(n, INT32_MAX);
     vector<bool> final(n, false);
     vector<int> parent(n, -1);
@@ -133,7 +136,7 @@ int main() {
         for (int j = 0; j < k; j++) {
             int ei;
             cin >> ei;
-         required_path[i].push_back(path_ei[ei - 1]);
+            required_path[i].push_back(path_ei[ei - 1]);
         }
     }
 

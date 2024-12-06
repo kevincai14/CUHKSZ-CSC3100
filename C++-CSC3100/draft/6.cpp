@@ -1,61 +1,48 @@
-//
-// Created by Quan on 2024/12/6.
-//
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
-using namespace std;
-
-// 生成单个组合的排列
-vector<string> generatePairPermutations(pair<int, int> p) {
-    vector<string> permutations;
-    permutations.push_back(to_string(p.first) + to_string(p.second));
-    permutations.push_back(to_string(p.second) + to_string(p.first));
-    return permutations;
-}
-
-// 合并路径
-void combinePaths(const vector<vector<string>>& paths, vector<string>& results, string current, int index) {
-    if (index == paths.size()) {
-        results.push_back(current);
-        return;
-    }
-    for (const auto& path : paths[index]) {
-        combinePaths(paths, results, current + path, index + 1);
-    }
-}
-
-// 主函数
-void generateAllPaths(vector<pair<int, int>> pairs) {
-    // 排列组合的结果
-    vector<string> results;
-
-    // 对组合顺序生成全排列
-    sort(pairs.begin(), pairs.end());
-    do {
-        // 每个组合内部的路径生成
-        vector<vector<string>> allPaths;
-        for (const auto& p : pairs) {
-            allPaths.push_back(generatePairPermutations(p));
+int find_shortest_path(int s, int t, vector<vector<int>>& adjacency_matrix, vector<pair<int, int>>& required_path) {
+    int min_cost = INT32_MAX;
+    vector<vector<int>> allPaths = generateAllPaths(required_path);
+    for (auto path: allPaths) {
+//        for (auto f: path) {
+//            cout << f;
+//        }
+//        cout<<endl;
+        int cost = 0;
+        cost += dijkstra(s, path[0] - 1, adjacency_matrix);
+        for (int i = 0; i < path.size(); i += 2) {
+            cost += adjacency_matrix[path[i] - 1][path[i + 1] - 1];
+            if (i + 2 < path.size()) {
+                cost += dijkstra(path[i + 1] - 1, path[i + 2] - 1, adjacency_matrix);
+            }
         }
-
-        // 合并路径
-        combinePaths(allPaths, results, "", 0);
-    } while (next_permutation(pairs.begin(), pairs.end()));
-
-    // 输出结果
-    for (const auto& result : results) {
-        cout << result << endl;
+        cost += dijkstra(path[path.size() - 1] - 1, t, adjacency_matrix);
+        min_cost = min(min_cost, cost);
     }
+
+    return min_cost;
 }
 
-int main() {
-    // 输入两两组合
-    vector<pair<int, int>> pairs = {{1, 2},{3,4}};
 
-    // 生成所有路径
-    generateAllPaths(pairs);
+int find_shortest_path(int s, int t, vector<vector<int>>& adjacency_matrix, vector<pair<int, int>>& required_path) {
+    int min_cost = 0;
+    for (auto edge: required_path) {
+        if (edge.first - 1 == s) {
+            min_cost += adjacency_matrix[s][edge.second - 1];
+            s = edge.second - 1;
+        } else if (edge.second - 1 == s) {
+            min_cost += adjacency_matrix[s][edge.first - 1];
+            s = edge.first - 1;
+        } else {
+            if (dijkstra(s, edge.first - 1, adjacency_matrix) > dijkstra(s, edge.second - 1, adjacency_matrix)) {
+                min_cost += dijkstra(s, edge.second - 1, adjacency_matrix);
+                s = edge.first - 1;
+            } else {
+                min_cost += dijkstra(s, edge.first - 1, adjacency_matrix);
+                s = edge.second - 1;
+            }
+            min_cost += adjacency_matrix[edge.first - 1][edge.second - 1];
+        }
+    }
+    min_cost += dijkstra(s , t, adjacency_matrix);
 
-    return 0;
+    return min_cost;
 }

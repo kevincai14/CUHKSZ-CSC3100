@@ -16,13 +16,12 @@ void dfs(int s, int t, vector<vector<int>>& adjacency_matrix, vector<int>& curre
     if (s == t) {
         all_path.push_back(current_path);
     } else {
-        for (int neighbor = 0; neighbor < adjacency_matrix[s].size(); ++neighbor) {
-            if (adjacency_matrix[s][neighbor] != INT32_MAX && !visited[neighbor]) {
+        for (int neighbor = 0; neighbor < n; neighbor++) {
+            if (adjacency_matrix[s][neighbor] != INT32_MAX and !visited[neighbor]) {
                 dfs(neighbor, t, adjacency_matrix, current_path, visited, all_path);
             }
         }
     }
-
     current_path.pop_back();
     visited[s] = false;
 }
@@ -65,6 +64,10 @@ int max_min_path(int s, int t, vector<vector<int>>& adjacency_matrix) {
 
 int main() {
     cin >> n >> m;
+    if (n <= 0 or m <= 0) {
+        cout << 0;
+        return 0;
+    }
     vector<vector<int>> adjacency_matrix(n, vector<int>(n, INT32_MAX));
 
     for (int i = 0; i < m; i++) {
@@ -81,17 +84,21 @@ int main() {
 //    }
 
     cin >> q;
-    vector<vector<tuple<int, int, int>>> change_edge(q);
-    for (int i = 0; i < q; i++) {
-        int k;
-        cin >> k;
-        vector<tuple<int, int, int>> change_edge_temp(k);
-        for (int j = 0; j < k; j++) {
-            int u, v, w;
-            cin >> u >> v >> w;
-            change_edge_temp[j] = make_tuple(u, v, w);
+    vector<vector<tuple<int, int, int>>> change_edge;
+    if (q > 0) {
+        vector<vector<tuple<int, int, int>>> change_edge_in_if(q);
+        for (int i = 0; i < q; i++) {
+            int k;
+            cin >> k;
+            vector<tuple<int, int, int>> change_edge_temp(k);
+            for (int j = 0; j < k; j++) {
+                int u, v, w;
+                cin >> u >> v >> w;
+                change_edge_temp[j] = make_tuple(u, v, w);
+            }
+            change_edge_in_if[i] = change_edge_temp;
         }
-        change_edge[i] = change_edge_temp;
+        change_edge = change_edge_in_if;
     }
 
     vector<vector<int>> start_end;
@@ -137,6 +144,7 @@ int main() {
 //        }
 //        cout << endl;
         int max_min_cost = max_min_path(s - 1, t - 1, adjacency_matrix);
+//        int max_min_cost = 0;
         result.push_back(max_min_cost);
     }
 

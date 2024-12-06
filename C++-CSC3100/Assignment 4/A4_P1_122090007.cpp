@@ -9,6 +9,44 @@ using namespace std;
 
 int n, m, q;
 
+vector<vector<int>> generatePairPermutations(pair<int, int> p) {
+    vector<vector<int>> permutations;
+    permutations.push_back({p.first, p.second});
+    permutations.push_back({p.second, p.first});
+    return permutations;
+}
+
+void combinePaths(const vector<vector<vector<int>>>& paths, vector<vector<int>>& results, vector<int> current, int index) {
+    if (index == paths.size()) {
+        results.push_back(current);
+        return;
+    }
+    for (const auto& path : paths[index]) {
+        vector<int> newPath = current;
+        newPath.insert(newPath.end(), path.begin(), path.end());
+        combinePaths(paths, results, newPath, index + 1);
+    }
+}
+
+vector<vector<int>> generateAllPaths(vector<pair<int, int>> pairs) {
+    vector<vector<int>> results;
+
+    sort(pairs.begin(), pairs.end());
+    do {
+        vector<vector<vector<int>>> allPaths;
+        for (const auto& p : pairs) {
+            allPaths.push_back(generatePairPermutations(p));
+        }
+
+        combinePaths(allPaths, results, {}, 0);
+    } while (next_permutation(pairs.begin(), pairs.end()));
+
+    return results;
+}
+
+
+
+
 int minDistance(vector<int>& dist, vector<bool>& final) {
     int min_cost = INT32_MAX;
     int min_index = INT32_MAX;
@@ -44,13 +82,30 @@ int dijkstra(int s, int t, vector<vector<int>>& adjacency_matrix) {
     return dist[t];
 }
 
-int find_shortest_path(int s, int t, vector<vector<int>>& adjacency_matrix, vector<vector<int>>& required_path) {
-    int result = 0;
 
 
 
+int find_shortest_path(int s, int t, vector<vector<int>>& adjacency_matrix, vector<pair<int, int>>& required_path) {
+    int min_cost = INT32_MAX;
+    vector<vector<int>> allPaths = generateAllPaths(required_path);
+    for (auto path: allPaths) {
+//        for (auto f: path) {
+//            cout << f;
+//        }
+//        cout<<endl;
+        int cost = 0;
+        cost += dijkstra(s, path[0] - 1, adjacency_matrix);
+        for (int i = 0; i < path.size(); i += 2) {
+            cost += adjacency_matrix[path[i] - 1][path[i + 1] - 1];
+            if (i + 2 < path.size()) {
+                cost += dijkstra(path[i + 1] - 1, path[i + 2] - 1, adjacency_matrix);
+            }
+        }
+        cost += dijkstra(path[path.size() - 1] - 1, t, adjacency_matrix);
+        min_cost = min(min_cost, cost);
+    }
 
-    return dijkstra(s, t, adjacency_matrix);
+    return min_cost;
 }
 
 int main() {
@@ -62,17 +117,16 @@ int main() {
         adjacency_matrix[i][i] = 0;
     }
 
-    vector<vector<int>> path_ei(m);
+    vector<pair<int, int>> path_ei(m);
     for (int i = 0; i < m; i++) {
         int u, v, w;
         cin >> u >> v >> w;
-        path_ei[i].push_back(u);
-        path_ei[i].push_back(v);
+        path_ei[i] = {u, v};
         adjacency_matrix[u - 1][v - 1] = w;
         adjacency_matrix[v - 1][u - 1] = w;
     }
 
-    vector<vector<vector<int>>> required_path(q);
+    vector<vector<pair<int, int>>> required_path(q);
     for (int i = 0; i < q; i++) {
         int k;
         cin >> k;

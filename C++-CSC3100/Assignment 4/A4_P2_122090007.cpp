@@ -9,50 +9,30 @@ using namespace std;
 
 int n, m, q;
 
-void dfs(int s, int t, vector<vector<pair<int, int>>>& adjacency_list, vector<int>& current_path, vector<bool>& visited, vector<vector<int>>& all_path) {
-    current_path.push_back(s);
+void dfs(int s, int t, vector<vector<pair<int, int>>>& adjacency_list, vector<bool>& visited, int& global_max, int current_min) {
+    if (s == t) {
+        global_max = max(global_max, current_min);
+        return;
+    }
+
     visited[s] = true;
 
-    if (s == t) {
-        all_path.push_back(current_path);
-    } else {
-        for (auto& neighbor : adjacency_list[s]) {
-            int neighbor_node = neighbor.first;
-            if (!visited[neighbor_node]) {
-                dfs(neighbor_node, t, adjacency_list, current_path, visited, all_path);
-            }
+    for (auto& neighbor : adjacency_list[s]) {
+        int neighbor_node = neighbor.first;
+        int weight = neighbor.second;
+        if (!visited[neighbor_node]) {
+            dfs(neighbor_node, t, adjacency_list, visited, global_max, min(current_min, weight));
         }
     }
 
-    current_path.pop_back();
     visited[s] = false;
 }
 
 int max_min_path(int s, int t, vector<vector<pair<int, int>>>& adjacency_list) {
-    vector<int> current_path;
     vector<bool> visited(n, false);
-    vector<vector<int>> all_path;
-    dfs(s, t, adjacency_list, current_path, visited, all_path);
-
-    int temp_max = 0;
-    for (auto path: all_path) {
-        int temp_min = INT32_MAX;
-        for (int j = 0; j < path.size() - 1; j++) {
-            int u = path[j];
-            int v = path[j + 1];
-
-            int edge_weight = INT32_MAX;
-            for (auto& neighbor : adjacency_list[u]) {
-                if (neighbor.first == v) {
-                    edge_weight = neighbor.second;
-                    break;
-                }
-            }
-            temp_min = min(edge_weight, temp_min);
-        }
-        temp_max = max(temp_max, temp_min);
-    }
-    return temp_max;
+    int global_max = 0;
+    dfs(s, t, adjacency_list, visited, global_max, INT32_MAX);
+    return global_max;
 }
 
 int main() {

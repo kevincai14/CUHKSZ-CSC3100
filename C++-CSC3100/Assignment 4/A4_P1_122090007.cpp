@@ -9,106 +9,75 @@ using namespace std;
 
 int n, m, q;
 
-vector<vector<int>> generatePairPermutations(pair<int, int> p) {
-    vector<vector<int>> permutations;
-    permutations.push_back({p.first, p.second});
-    permutations.push_back({p.second, p.first});
-    return permutations;
-}
-
-void combinePaths(const vector<vector<vector<int>>>& paths, vector<vector<int>>& results, vector<int> current, int index) {
-    if (index == paths.size()) {
-        results.push_back(current);
-        return;
-    }
-    for (const auto& path : paths[index]) {
-        vector<int> newPath = current;
-        newPath.insert(newPath.end(), path.begin(), path.end());
-        combinePaths(paths, results, newPath, index + 1);
-    }
-}
-
-vector<vector<int>> generateAllPaths(vector<pair<int, int>> pairs) {
-    vector<vector<int>> results;
-
-    sort(pairs.begin(), pairs.end());
-    do {
-        vector<vector<vector<int>>> allPaths;
-        for (const auto& p : pairs) {
-            allPaths.push_back(generatePairPermutations(p));
-        }
-
-        combinePaths(allPaths, results, {}, 0);
-    } while (next_permutation(pairs.begin(), pairs.end()));
-
-    return results;
-}
-
-
-
-
-int minDistance(vector<int>& dist, vector<bool>& final) {
-    int min_cost = INT32_MAX;
-    int min_index = INT32_MAX;
-    for (int i = 0; i < n; i++) {
-        if (!final[i] and dist[i] < min_cost) {
-            min_cost = dist[i];
-            min_index = i;
-        }
-    }
-
-    return min_index;
-}
-
-
-int dijkstra(int s, int t, vector<vector<int>>& adjacency_matrix) {
-    if (s == t) {
-        return 0;
-    }
-    vector<int> dist(n, INT32_MAX);
-    vector<bool> final(n, false);
+vector<int> bellmanFord(int s, int t, vector<vector<int>>& adjacency_matrix) {
+    vector<int> dist(n, INT_MAX);
     vector<int> parent(n, -1);
-
     dist[s] = 0;
-    for (int i = 0; i < n - 1; i++) {
-        int u = minDistance(dist, final);
-        final[u] = true;
 
-        for (int v = 0; v < n; v++) {
-            if (adjacency_matrix[u][v] != INT32_MAX and dist[u] != INT32_MAX and !final[v] and dist[u] + adjacency_matrix[u][v] < dist[v]) {
-                dist[v] = dist[u] + adjacency_matrix[u][v];
-                parent[v] = u;
+    for (int i = 0; i < n - 1; i++) {
+        for (int u = 0; u < n; u++) {
+            for (int v = 0; v < n; v++) {
+                if (adjacency_matrix[u][v] != INT_MAX and dist[u] != INT_MAX and dist[u] + adjacency_matrix[u][v] < dist[v]) {
+                    dist[v] = dist[u] + adjacency_matrix[u][v];
+                    parent[v] = u;
+                }
             }
         }
     }
+//    cout <<"start";
+//    for (auto i: parent) {
+//        cout << i ;
+//        cout<< endl;
+//    }
+//    cout << "end"<<endl;
 
-    return dist[t];
+//    for (int u = 0; u < n; ++u) {
+//        for (int v = 0; v < n; ++v) {
+//            if (adjacency_matrix[u][v] != INT_MAX && dist[u] != INT_MAX &&
+//                dist[u] + adjacency_matrix[u][v] < dist[v]) {
+//                throw runtime_error("Graph contains a negative weight cycle.");
+//            }
+//        }
+//    }
+    vector<int> path;
+    int current = t;
+    while (current != 0) {
+        path.push_back(current);
+        current = parent[current];
+    }
+    path.push_back(s);
+    reverse(path.begin(), path.end());
+    return path;
 }
-
-
 
 
 int find_shortest_path(int s, int t, vector<vector<int>>& adjacency_matrix, vector<pair<int, int>>& required_path) {
-    int min_cost = INT32_MAX;
-    vector<vector<int>> allPaths = generateAllPaths(required_path);
-    for (auto path: allPaths) {
-//        for (auto f: path) {
-//            cout << f;
-//        }
-//        cout<<endl;
-        int cost = 0;
-        cost += dijkstra(s, path[0] - 1, adjacency_matrix);
-        for (int i = 0; i < path.size(); i += 2) {
-            cost += adjacency_matrix[path[i] - 1][path[i + 1] - 1];
-            if (i + 2 < path.size()) {
-                cost += dijkstra(path[i + 1] - 1, path[i + 2] - 1, adjacency_matrix);
-            }
-        }
-        cost += dijkstra(path[path.size() - 1] - 1, t, adjacency_matrix);
-        min_cost = min(min_cost, cost);
+    vector<vector<int>> negative_edge = adjacency_matrix;
+    for (auto i: required_path) {
+        negative_edge[i.first - 1][i.second - 1] = -1000;
+        negative_edge[i.second - 1][i.first - 1] = -1000;
     }
+//    for (auto i: negative_edge) {
+//        for (auto j: i) {
+//            cout << j << " ";
+//        }
+//        cout << endl;
+//    }
 
-    return min_cost;
+
+    vector<int> path = bellmanFord(s, t, negative_edge);
+
+    int cost = 0;
+    for (int i = 0; i < path.size(); i++) {
+        if (i + 1 < path.size()) {
+            cost += adjacency_matrix[path[i]][path[i + 1]];
+        }
+    }
+//    for (auto i: path) {
+//        cout << i+1 << " ";
+//    }
+
+    return cost;
 }
 
 int main() {

@@ -5,61 +5,40 @@
 #include <vector>
 #include <tuple>
 #include <cstdint>
-#include <algorithm>
 #include <queue>
 using namespace std;
 
 int n, m, q;
 
-void dfs(int s, int t, vector<vector<pair<int, int>>>& adjacency_list, vector<bool>& visited, int& global_max, int current_min) {
-//    cout << current_min << endl;
-    if (s == t) {
-        global_max = max(global_max, current_min);
-        return;
-    }
+int max_min_path(int s, int t, vector<vector<pair<int, int>>>& adjacency_list) {
+    vector<bool> visited(n, false);
+    priority_queue<pair<int, int>> processing_node;
+    processing_node.emplace(INT32_MAX, s);
+    int global_max = 0;
 
-    visited[s] = true;
+    while (!processing_node.empty()) {
+        pair<int, int> process_node = processing_node.top();
+        int current_min = process_node.first;
+        int current_node = process_node.second;
+        processing_node.pop();
 
-    for (auto& neighbor : adjacency_list[s]) {
-        int neighbor_node = neighbor.first;
-        int weight = neighbor.second;
-
-        if (weight <= global_max or current_min <= global_max) {
+        if (visited[current_node]) {
             continue;
         }
 
-        if (!visited[neighbor_node]) {
-            dfs(neighbor_node, t, adjacency_list, visited, global_max, min(current_min, weight));
-        }
-    }
-
-    visited[s] = false;
-}
-
-int max_min_path(int s, int t, vector<vector<pair<int, int>>>& adjacency_list) {
-    vector<bool> visited(n, false);
-    priority_queue<pair<int, int>> pq;
-    pq.push({INT32_MAX, s});
-    int global_max = 0;
-
-    while (!pq.empty()) {
-        auto [current_min, current_node] = pq.top();
-        pq.pop();
-
-        if (visited[current_node]) continue;
         visited[current_node] = true;
 
         if (current_node == t) {
-            global_max = max(global_max, current_min);
-            break;
+            global_max = max(current_min, global_max);
+            return global_max;
         }
 
-        for (const auto& neighbor : adjacency_list[current_node]) {
-            int neighbor_node = neighbor.first;
-            int weight = neighbor.second;
+        for (auto neighbour : adjacency_list[current_node]) {
+            int neighbor_node = neighbour.first;
+            int weight = neighbour.second;
 
             if (!visited[neighbor_node]) {
-                pq.push({min(current_min, weight), neighbor_node});
+                processing_node.emplace(min(current_min, weight), neighbor_node);
             }
         }
     }
@@ -69,35 +48,27 @@ int max_min_path(int s, int t, vector<vector<pair<int, int>>>& adjacency_list) {
 
 int main() {
     cin >> n >> m;
-    if (n <= 0 or m <= 0) {
-        cout << 0;
-        return 0;
-    }
 
     vector<vector<pair<int, int>>> adjacency_list(n);
     for (int i = 0; i < m; i++) {
         int u, v, w;
         cin >> u >> v >> w;
-        adjacency_list[u - 1].push_back({v - 1, w});
-        adjacency_list[v - 1].push_back({u - 1, w});
+        adjacency_list[u - 1].emplace_back(v - 1, w);
+        adjacency_list[v - 1].emplace_back(u - 1, w);
     }
 
     cin >> q;
-    vector<vector<tuple<int, int, int>>> change_edge;
-    if (q > 0) {
-        vector<vector<tuple<int, int, int>>> change_edge_in_if(q);
-        for (int i = 0; i < q; i++) {
-            int k;
-            cin >> k;
-            vector<tuple<int, int, int>> change_edge_temp(k);
-            for (int j = 0; j < k; j++) {
-                int u, v, w;
-                cin >> u >> v >> w;
-                change_edge_temp[j] = make_tuple(u, v, w);
-            }
-            change_edge_in_if[i] = change_edge_temp;
+    vector<vector<tuple<int, int, int>>> change_edge(q);
+    for (int i = 0; i < q; i++) {
+        int k;
+        cin >> k;
+        vector<tuple<int, int, int>> change_edge_temp(k);
+        for (int j = 0; j < k; j++) {
+            int u, v, w;
+            cin >> u >> v >> w;
+            change_edge_temp[j] = make_tuple(u, v, w);
         }
-        change_edge = change_edge_in_if;
+        change_edge[i] = change_edge_temp;
     }
 
     vector<vector<int>> start_end;
@@ -137,7 +108,6 @@ int main() {
         }
 
         int max_min_cost = max_min_path(s - 1, t - 1, adjacency_list);
-//        int max_min_cost = 0;
         result.push_back(max_min_cost);
     }
 

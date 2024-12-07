@@ -10,54 +10,50 @@ using namespace std;
 
 int n, m, s, t;
 
-void dfs(int start, int end, vector<vector<pair<int, int>>>& adjacency_list, vector<int>& current_path, vector<bool>& visited, vector<vector<int>>& all_path) {
-    current_path.push_back(start);
-    visited[start] = true;
-
-    if (start == end) {
-        all_path.push_back(current_path);
-    } else {
-        for (auto neighbor : adjacency_list[start]) {
-            int neighbor_node = neighbor.first;
-            if (!visited[neighbor_node]) {
-                dfs(neighbor_node, end, adjacency_list, current_path, visited, all_path);
-            }
-        }
-    }
-    current_path.pop_back();
-    visited[start] = false;
-}
-
 int find_min_hp(int start, int end, vector<vector<pair<int, int>>>& adjacency_list) {
-    vector<int> current_path;
-    vector<bool> visited(n, false);
-    vector<vector<int>> all_path;
+    int current_hp = 0;
+    int current_sp = 1;
+    int current_path_hp_cost = INT32_MAX;
+    int min_path_cost = INT32_MAX;
+    int min_monster = INT32_MAX;
 
-    dfs(start, end, adjacency_list, current_path, visited, all_path);
-//    for (auto i: all_path) {
-//        for (auto j:i) {
-//            cout << j+1 << " ";
-//        }
-//        cout << endl;
-//    }
-    int min_hp = INT32_MAX;
-    for (auto path: all_path) {
-        int hp = 0;
-        int sp = 0;
-        for (int i = 0; i < path.size() - 1; i++) {
-            sp++;
-            int a;
-            for (auto pair: adjacency_list[path[i]]) {
-                if (pair.first == path[i + 1]) {
-                    a = pair.second;
-                }
-            }
-            hp += a / sp;
+    for (auto node: adjacency_list[start]) {
+        if (node.second < min_monster) {
+            min_monster = node.second;
+            start = node.first;
         }
-        min_hp = min(hp, min_hp);
+    }
+    current_path_hp_cost = min_monster / current_sp;
+    min_path_cost = current_path_hp_cost;
+
+    while (true) {
+        current_hp += current_path_hp_cost;
+        current_sp++;
+
+        min_monster = INT32_MAX;
+        for (auto node: adjacency_list[start]) {
+            if (node.second < min_monster) {
+                min_monster = node.second;
+                start = node.first;
+            }
+        }
+        current_path_hp_cost = min_monster / current_sp;
+        if (current_path_hp_cost == 0) {
+            break;
+        }
+
+        if (current_path_hp_cost > min_path_cost) {
+            break;
+        }
+        min_path_cost = min(current_path_hp_cost, min_path_cost);
     }
 
-    return min_hp;
+    while (min_path_cost / current_sp != 0) {
+        current_hp += min_path_cost / current_sp;
+        current_sp++;
+    }
+
+    return current_hp;
 }
 
 int main() {

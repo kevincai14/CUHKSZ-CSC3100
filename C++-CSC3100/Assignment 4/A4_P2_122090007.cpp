@@ -6,6 +6,7 @@
 #include <tuple>
 #include <cstdint>
 #include <algorithm>
+#include <queue>
 using namespace std;
 
 int n, m, q;
@@ -37,17 +38,32 @@ void dfs(int s, int t, vector<vector<pair<int, int>>>& adjacency_list, vector<bo
 
 int max_min_path(int s, int t, vector<vector<pair<int, int>>>& adjacency_list) {
     vector<bool> visited(n, false);
+    priority_queue<pair<int, int>> pq;
+    pq.push({INT32_MAX, s});
     int global_max = 0;
 
-    for (auto& neighbors : adjacency_list) {
-        sort(neighbors.rbegin(), neighbors.rend(), [](const pair<int, int>& a, const pair<int, int>& b) {
-            return a.second < b.second;
-        });
+    while (!pq.empty()) {
+        auto [current_min, current_node] = pq.top();
+        pq.pop();
+
+        if (visited[current_node]) continue;
+        visited[current_node] = true;
+
+        if (current_node == t) {
+            global_max = max(global_max, current_min);
+            break;
+        }
+
+        for (const auto& neighbor : adjacency_list[current_node]) {
+            int neighbor_node = neighbor.first;
+            int weight = neighbor.second;
+
+            if (!visited[neighbor_node]) {
+                pq.push({min(current_min, weight), neighbor_node});
+            }
+        }
     }
-//    for (auto i : adjacency_list[0]) {
-//        cout << i.first << " ";
-//    }
-    dfs(s, t, adjacency_list, visited, global_max, INT32_MAX);
+
     return global_max;
 }
 

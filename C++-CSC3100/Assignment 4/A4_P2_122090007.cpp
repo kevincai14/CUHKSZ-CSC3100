@@ -5,11 +5,13 @@
 #include <vector>
 #include <tuple>
 #include <cstdint>
+#include <algorithm>
 using namespace std;
 
 int n, m, q;
 
 void dfs(int s, int t, vector<vector<pair<int, int>>>& adjacency_list, vector<bool>& visited, int& global_max, int current_min) {
+//    cout << current_min << endl;
     if (s == t) {
         global_max = max(global_max, current_min);
         return;
@@ -20,6 +22,11 @@ void dfs(int s, int t, vector<vector<pair<int, int>>>& adjacency_list, vector<bo
     for (auto& neighbor : adjacency_list[s]) {
         int neighbor_node = neighbor.first;
         int weight = neighbor.second;
+
+        if (weight <= global_max or current_min <= global_max) {
+            continue;
+        }
+
         if (!visited[neighbor_node]) {
             dfs(neighbor_node, t, adjacency_list, visited, global_max, min(current_min, weight));
         }
@@ -31,6 +38,15 @@ void dfs(int s, int t, vector<vector<pair<int, int>>>& adjacency_list, vector<bo
 int max_min_path(int s, int t, vector<vector<pair<int, int>>>& adjacency_list) {
     vector<bool> visited(n, false);
     int global_max = 0;
+
+    for (auto& neighbors : adjacency_list) {
+        sort(neighbors.rbegin(), neighbors.rend(), [](const pair<int, int>& a, const pair<int, int>& b) {
+            return a.second < b.second;
+        });
+    }
+//    for (auto i : adjacency_list[0]) {
+//        cout << i.first << " ";
+//    }
     dfs(s, t, adjacency_list, visited, global_max, INT32_MAX);
     return global_max;
 }
@@ -103,17 +119,7 @@ int main() {
                 }
             }
         }
-//        for (auto k:adjacency_matrix) {
-//            for (auto j: k) {
-//                if (j == INT32_MAX) {
-//                    cout << "q" << " ";
-//                } else {
-//                    cout << j << " ";
-//                }
-//            }
-//            cout << endl;
-//        }
-//        cout << endl;
+
         int max_min_cost = max_min_path(s - 1, t - 1, adjacency_list);
 //        int max_min_cost = 0;
         result.push_back(max_min_cost);

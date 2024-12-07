@@ -47,12 +47,7 @@ int find_min_hp(int start, int end, vector<vector<pair<int, int>>>& adjacency_li
         }
         min_path_cost = min(current_path_hp_cost, min_path_cost);
     }
-
-    while (min_path_cost / current_sp != 0) {
-        current_hp += min_path_cost / current_sp;
-        current_sp++;
-    }
-
+    
     return current_hp;
 }
 

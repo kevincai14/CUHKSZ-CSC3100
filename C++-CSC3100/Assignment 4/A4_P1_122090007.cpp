@@ -5,100 +5,124 @@
 #include <vector>
 #include <cstdint>
 #include <algorithm>
+#include <tuple>
+#include <climits>
 using namespace std;
 
 int n, m, q;
 
-vector<int> bellmanFord(int s, int t, vector<vector<int>>& adjacency_matrix) {
-    vector<int> dist(n, INT_MAX);
-    vector<int> parent(n, -1);
-    dist[s] = 0;
-
-    for (int i = 0; i < n - 1; i++) {
-        for (int u = 0; u < n; u++) {
-            for (int v = 0; v < n; v++) {
-                if (adjacency_matrix[u][v] != INT_MAX and dist[u] != INT_MAX and dist[u] + adjacency_matrix[u][v] < dist[v]) {
-                    dist[v] = dist[u] + adjacency_matrix[u][v];
-                    parent[v] = u;
-                }
-            }
+int minDistance(vector<int>& dist, vector<bool>& final) {
+    int min_cost = INT32_MAX;
+    int min_index = INT32_MAX;
+    for (int i = 0; i < n; i++) {
+        if (!final[i] and dist[i] < min_cost) {
+            min_cost = dist[i];
+            min_index = i;
         }
     }
-//    cout <<"start";
-//    for (auto i: parent) {
-//        cout << i ;
-//        cout<< endl;
-//    }
-//    cout << "end"<<endl;
-
-//    for (int u = 0; u < n; ++u) {
-//        for (int v = 0; v < n; ++v) {
-//            if (adjacency_matrix[u][v] != INT_MAX && dist[u] != INT_MAX &&
-//                dist[u] + adjacency_matrix[u][v] < dist[v]) {
-//                throw runtime_error("Graph contains a negative weight cycle.");
-//            }
-//        }
-//    }
-    vector<int> path;
-    int current = t;
-    while (current != 0) {
-        path.push_back(current);
-        current = parent[current];
-    }
-    path.push_back(s);
-    reverse(path.begin(), path.end());
-    return path;
+    return min_index;
 }
 
 
-int find_shortest_path(int s, int t, vector<vector<int>>& adjacency_matrix, vector<pair<int, int>>& required_path) {
-    vector<vector<int>> negative_edge = adjacency_matrix;
-    for (auto i: required_path) {
-        negative_edge[i.first - 1][i.second - 1] = -1000;
-        negative_edge[i.second - 1][i.first - 1] = -1000;
-    }
-//    for (auto i: negative_edge) {
-//        for (auto j: i) {
-//            cout << j << " ";
-//        }
-//        cout << endl;
-//    }
+vector<int> dijkstra(int s, vector<vector<pair<int, int>>> adjacency_list) {
+    vector<int> dist(n, INT32_MAX);
+    vector<bool> final(n, false);
+    vector<int> parent(n, -1);
 
+    dist[s] = 0;
+    for (int i = 0; i < n - 1; i++) {
+        int u = minDistance(dist, final);
+        final[u] = true;
 
-    vector<int> path = bellmanFord(s, t, negative_edge);
-
-    int cost = 0;
-    for (int i = 0; i < path.size(); i++) {
-        if (i + 1 < path.size()) {
-            cost += adjacency_matrix[path[i]][path[i + 1]];
+        for (const auto &[v, weight]: adjacency_list[u]) {
+            if (dist[u] != INT_MAX && !final[v] && dist[u] + weight < dist[v]) {
+                dist[v] = dist[u] + weight;
+                parent[v] = u;
+            }
         }
     }
-//    for (auto i: path) {
-//        cout << i+1 << " ";
-//    }
+    return dist;
+}
 
-    return cost;
+pair<int, int> find_shortest_node(int s, vector<vector<pair<int, int>>>& adjacency_list, vector<tuple<int, int, int>>& required_path, int cost = 0) {
+    cout << "resursive" << endl;
+    if (required_path.empty()) {
+        return {cost, s};
+    }
+    vector<int> dist = dijkstra(s, adjacency_list);
+    tuple<int, int, int> nearest_path;
+    int nearest_node = INT32_MAX;
+    int nearest_dist = INT32_MAX;
+    int next_start_node = INT32_MAX;
+    for (int i = 0; i < required_path.size(); i++) {
+        auto edge = required_path[i];
+        int nearest_node_for_pair = INT32_MAX;
+        int nearest_dist_for_pair = INT32_MAX;
+        int far_node = INT32_MAX;
+
+        int node1 = get<0>(edge);
+        int node1_dist = dist[node1];
+        int node2 = get<1>(edge);
+        int node2_dist = dist[node2];
+
+        if (node1_dist > node2_dist) {
+            nearest_node_for_pair = node2;
+            nearest_dist_for_pair = node2_dist;
+            far_node = node1;
+        } else {
+            nearest_node_for_pair = node1;
+            nearest_dist_for_pair = node1_dist;
+            far_node = node2;
+        }
+
+        if (nearest_dist > nearest_dist_for_pair) {
+            nearest_node = nearest_node_for_pair;
+            nearest_dist = nearest_dist_for_pair;
+            nearest_path = edge;
+            next_start_node = far_node;
+        }
+    }
+    cout << "nearest_path " << get<0>(nearest_path)+1 << get<1>(nearest_path)+1 <<get<2>(nearest_path)<<endl;
+    cout << "nearest node " << nearest_node + 1 <<endl;
+    cout << "node " << s+1<< " to next " << nearest_dist << endl;
+    cout << "len of pass edge " << get<2>(nearest_path) << endl;
+    cout << "next_node:" << next_start_node+1 << endl;
+
+    cost += nearest_dist + get<2>(nearest_path);
+    cout << "cost " << cost << endl;
+    cout << endl;
+    auto it = find(required_path.begin(), required_path.end(), nearest_path);
+    if (it != required_path.end()) {
+        required_path.erase(it);
+    }
+    return find_shortest_node(next_start_node, adjacency_list, required_path, cost);
+
+}
+
+int find_shortest_path(int s, int t, vector<vector<pair<int, int>>>& adjacency_list, vector<tuple<int, int, int>>& required_path) {
+    pair<int, int> result;
+    result = find_shortest_node(s, adjacency_list, required_path);
+    int min_cost = result.first;
+    int last_node = result.second;
+    vector<int> dist = dijkstra(last_node, adjacency_list);
+    min_cost += dist[t];
+    return min_cost;
 }
 
 int main() {
     cin >> n >> m >> q;
 
-    vector<vector<int>> adjacency_matrix(n, vector<int>(n, INT32_MAX));
-
-    for (int i = 0; i < n; i++) {
-        adjacency_matrix[i][i] = 0;
-    }
-
-    vector<pair<int, int>> path_ei(m);
+    vector<vector<pair<int, int>>> adjacency_list(n);
+    vector<tuple<int, int, int>> path_ei(m);
     for (int i = 0; i < m; i++) {
         int u, v, w;
         cin >> u >> v >> w;
-        path_ei[i] = {u, v};
-        adjacency_matrix[u - 1][v - 1] = w;
-        adjacency_matrix[v - 1][u - 1] = w;
+        path_ei[i] = make_tuple(u - 1, v - 1, w);
+        adjacency_list[u - 1].emplace_back(v - 1, w);
+        adjacency_list[v - 1].emplace_back(u - 1, w);
     }
 
-    vector<vector<pair<int, int>>> required_path(q);
+    vector<vector<tuple<int, int, int>>> required_path(q);
     for (int i = 0; i < q; i++) {
         int k;
         cin >> k;
@@ -113,7 +137,7 @@ int main() {
     for (int i = 0; i < q; i++) {
         int s, t;
         cin >> s >> t;
-        int shortest_time = find_shortest_path(s - 1, t - 1, adjacency_matrix, required_path[i]);
+        int shortest_time = find_shortest_path(s - 1, t - 1, adjacency_list, required_path[i]);
         result.push_back(shortest_time);
     }
 

@@ -92,6 +92,63 @@ AVLNode* insert(AVLNode* node, int value) {
     return node;
 }
 
+AVLNode* deleteNode(AVLNode* root, int value) {
+    // 基线条件：如果树为空，返回 nullptr
+    if (!root) return root;
+
+    // 查找要删除的节点
+    if (value < root->value)
+        root->left = deleteNode(root->left, value);
+    else if (value > root->value)
+        root->right = deleteNode(root->right, value);
+    else {
+        // 找到要删除的节点
+        if (!root->left || !root->right) {
+            // 只有一个子节点或没有子节点
+            AVLNode* temp = root->left ? root->left : root->right;
+            delete root;
+            return temp; // 替换为子节点或返回 nullptr（叶子节点）
+        } else {
+            // 有两个子节点：用右子树的最小值替换
+            AVLNode* temp = root->right;
+            while (temp->left) temp = temp->left; // 找到右子树的最小值
+
+            root->value = temp->value; // 替换值
+            root->right = deleteNode(root->right, temp->value); // 删除后继节点
+        }
+    }
+
+    // 回溯更新高度
+    root->height = 1 + max(getHeight(root->left), getHeight(root->right));
+
+    // 检查平衡性
+    int balance = getBalance(root);
+
+    // 如果失衡，根据类型进行旋转
+    // 左左
+    if (balance > 1 && getBalance(root->left) >= 0)
+        return rightRotate(root);
+
+    // 左右
+    if (balance > 1 && getBalance(root->left) < 0) {
+        root->left = leftRotate(root->left);
+        return rightRotate(root);
+    }
+
+    // 右右
+    if (balance < -1 && getBalance(root->right) <= 0)
+        return leftRotate(root);
+
+    // 右左
+    if (balance < -1 && getBalance(root->right) > 0) {
+        root->right = rightRotate(root->right);
+        return leftRotate(root);
+    }
+
+    return root;
+}
+
+
 // 中序遍历打印
 void inorderTraversal(AVLNode* root) {
     if (!root) return;

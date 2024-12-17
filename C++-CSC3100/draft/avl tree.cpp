@@ -181,7 +181,7 @@ void printTree(AVLNode* root, int space = 0, int levelSpace = 5) {
 int main() {
     AVLNode* root = nullptr;
 
-    int values[] = {11,7,14,5,9,12,17,16,19};
+    int values[] = {40,50,45,30,20,35,60,36,37};
     for (int val : values) {
         root = insert(root, val);
     }
@@ -193,8 +193,8 @@ int main() {
     cout << "\nAVL树结构: \n";
     printTree(root); // 调用打印树的函数
     cout << endl;
-    root = insert(root, 27);
-    printTree(root); // 调用打印树的函数
+//    root = insert(root, 27);
+//    printTree(root); // 调用打印树的函数
     return 0;
 }
 
